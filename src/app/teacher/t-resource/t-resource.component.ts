@@ -115,6 +115,7 @@ export class TResourceComponent implements OnInit, OnChanges {
   }
 
   uploadLink() {
+    console.log('hello world');
     this.nodeService.upload_link(
       this.course_id,
       this.mind_id,

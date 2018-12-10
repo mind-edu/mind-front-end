@@ -74,4 +74,32 @@
     </ol>
 
   </nz-collapse-panel>
+
+
+  <!--判断题面板-->
+  <nz-collapse-panel
+    [nzHeader]="'判断题'"
+    [nzActive]="true"
+    [nzDisabled]="false">
+
+    <!--判断题列表-->
+    <ol>
+      <li *ngFor="let stuJudge of stuJudges" class="judge">
+        <form>
+          <div class="title item"><b>{{stuJudge.title}}</b></div>
+          <nz-radio-group [(ngModel)]="stuJudge.answer" name="stuAnswer">
+            <label nz-radio nzValue="T">正确</label>
+            <label nz-radio nzValue="F">错误</label>
+          </nz-radio-group>
+          <button nz-button (click)="submitJudge(stuJudge)" [disabled]="!stuJudge.answer || stuJudge.answer==''">提交回答</button>
+        </form>
+
+        <!--分割线-->
+        <nz-divider></nz-divider>
+      </li>
+    </ol>
+
+
+  </nz-collapse-panel>
+
 </nz-collapse>

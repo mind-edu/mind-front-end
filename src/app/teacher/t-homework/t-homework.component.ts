@@ -4,7 +4,7 @@ import {TNodeService} from '../t-node.service';
 import {MultipleQuestion} from '../multiple-question';
 import {ShortQuestion} from '../../short-question';
 import {NzModalRef, NzModalService} from 'ng-zorro-antd';
-import {JudgeQuestion} from '../../judge-question';
+import {JudgeQuestion} from '../judge-question';
 
 @Component({
   selector: 'app-t-homework',

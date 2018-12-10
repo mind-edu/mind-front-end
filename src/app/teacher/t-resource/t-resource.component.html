@@ -1,27 +1,3 @@
-<!--<nz-upload-->
-  <!--nzName="material"-->
-  <!--[(nzFileList)]="fileList"-->
-  <!--[nzBeforeUpload]="beforeUpload">-->
-  <!--<button nz-button>-->
-    <!--<i nz-icon type="upload"></i><span>选择文件</span>-->
-  <!--</button>-->
-<!--</nz-upload>-->
-<!--<button nz-button [nzType]="'primary'" [nzLoading]="uploading" (click)="handleUpload()" [disabled]="fileList.length == 0" style="margin-top: 16px">-->
-  <!--{{ uploading ? '正在上传' : '开始上传' }}-->
-<!--</button>-->
-
-<!--<nz-upload-->
-  <!--nzName="material"-->
-  <!--[nzAction]="uploadUrl"-->
-  <!--[nzFileList]="fileList"-->
-  <!--nzMultiple-->
-  <!--[nzLimit]="2"-->
-  <!--[nzFilter]="filters"-->
-  <!--(nzChange)="handleChange($event)">-->
-  <!--<button nz-button>-->
-    <!--<i nz-icon type="upload"></i><span>Upload</span>-->
-  <!--</button>-->
-<!--</nz-upload>-->
 
 <nz-upload
   nzName="material"
@@ -58,16 +34,6 @@
     [nzActive]="true"
     [nzDisabled]="false">
 
-    <!--<ol>-->
-      <!--<li *ngFor="let material of material_names">-->
-        <!--<a href="javascript:void(0)" (click)="download(material)"><b>{{material}}</b></a>-->
-
-        <!--&lt;!&ndash;分割线&ndash;&gt;-->
-        <!--<nz-divider></nz-divider>-->
-
-      <!--</li>-->
-    <!--</ol>-->
-
     <nz-list [nzDataSource]="material_names"
              [nzRenderItem]="material_item">
       <ng-template #material_item let-material_item>
@@ -89,11 +55,11 @@
     [nzActive]="false"
     [nzDisabled]="false">
 
-    <nz-list [nzDataSource]="link_addresses"
+    <nz-list [nzDataSource]="links"
              [nzRenderItem]="link_item">
       <ng-template #link_item let-link_item>
         <nz-list-item [nzContent]="link_item">
-          <a target="_blank" href="{{ link_item }}">{{link_item}}</a>
+          <a target="_blank" href="{{ link_item['link_address'] }}">{{link_item['link_name']}}</a>
         </nz-list-item>
       </ng-template>
     </nz-list>
@@ -102,13 +68,13 @@
 </nz-collapse>
 
 
-<!-- 模板 创建新的思维导图 -->
+<!-- 模板 创建新的资源链接 -->
 <ng-template #newLinkTitle>
   <span>发布新资源链接</span>
 </ng-template>
 <ng-template #newLinkContent>
-  <input nz-input placeholder="请输入资源名称" [(ngModel)]="link_address">
-  <input nz-input placeholder="请输入资源url，需要以http或https开头。" [(ngModel)]="link_address">
+  <input nz-input placeholder="请输入资源名称" [(ngModel)]="link.link_name" style="margin-bottom: 10px;">
+  <input nz-input placeholder="请输入资源url，需要以http或https开头。" [(ngModel)]="link.link_address">
 </ng-template>
 <ng-template #newLinkFooter>
   <button nz-button nzType="primary" (click)="uploadLink()">提交</button>

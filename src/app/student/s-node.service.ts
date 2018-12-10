@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-import {environment} from '../../environments/environment';
-import {Observable} from 'rxjs';
-import {MultipleQuestion} from '../teacher/multiple-question';
-import {ShortQuestion} from '../short-question';
-import {StuMultiple} from '../stu-multiple';
+import { environment } from '../../environments/environment';
+import { Observable } from 'rxjs';
+import { ShortQuestion } from '../short-question';
+import { StuMultiple } from '../stu-multiple';
+import { StuJudge } from '../stu-judge';
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -25,12 +25,6 @@ export class SNodeService {
     this.baseUrl = environment.apiUrl;
   }
 
-  // 教师获取选择题列表
-  getMultiple(course_id: string, mindmap_id: string, node_id: string): Observable<MultipleQuestion[]> {
-    this.tempUrl = this.baseUrl + 'multiples_teacher/' + course_id + '/' + mindmap_id + '/' + node_id;
-    return this.http.get<MultipleQuestion[]>(this.tempUrl);
-  }
-
   // 教师&学生获取简答题列表
   getShort(course_id: string, mindmap_id: string, node_id: string): Observable<ShortQuestion[]> {
     this.tempUrl = this.baseUrl + 'shorts/' + course_id + '/' + mindmap_id + '/' + node_id;
@@ -43,10 +37,22 @@ export class SNodeService {
     return this.http.get<StuMultiple[]>(this.tempUrl);
   }
 
+  // 学生获取判断题列表
+  getStuJudge(course_id: string, mindmap_id: string, node_id: string): Observable<StuJudge[]> {
+    this.tempUrl = this.baseUrl + 'judgments_student/' + course_id + '/' + mindmap_id + '/' + node_id;
+    return this.http.get<StuJudge[]>(this.tempUrl);
+  }
+
   // 学生回答选择题
   answerMultiple(course_id: string, mindmap_id: string, node_id: string, user_name: string, stuMultiple: StuMultiple): Observable<boolean> {
     this.tempUrl = this.baseUrl + 'answer_multiple/' + course_id + '/' + mindmap_id + '/' + node_id + '/' + user_name;
     return this.http.post<boolean>(this.tempUrl, stuMultiple, httpOptions);
+  }
+
+  // 学生回答判断题
+  answerJudge(course_id: string, mindmap_id: string, node_id: string, user_name: string, stuJudge: StuJudge): Observable<boolean> {
+    this.tempUrl = this.baseUrl + 'answer_judgement/' + course_id + '/' + mindmap_id + '/' + node_id + '/' + user_name;
+    return this.http.post<boolean>(this.tempUrl, stuJudge, httpOptions);
   }
 
   // 获取资源列表

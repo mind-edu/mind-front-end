@@ -1,9 +1,10 @@
 import {Component, Input, OnChanges, OnInit} from '@angular/core';
 
-import {ShortQuestion} from '../../short-question';
-import {StuMultiple} from '../../stu-multiple';
-import {SNodeService} from '../s-node.service';
-import {NzModalService} from 'ng-zorro-antd';
+import { ShortQuestion } from '../../short-question';
+import { StuMultiple } from '../../stu-multiple';
+import { SNodeService } from '../s-node.service';
+import { NzModalService } from 'ng-zorro-antd';
+import { StuJudge } from '../../stu-judge';
 
 @Component({
   selector: 'app-s-homework',
@@ -14,6 +15,7 @@ export class SHomeworkComponent implements OnInit, OnChanges {
 
   stuMultiples: StuMultiple[];
   stuShorts: ShortQuestion[];
+  stuJudges: StuJudge[];
 
   @Input() course_id: string; // 与上层组件中course绑定
   @Input() mind_id: string; // 与上层组件中选中的mindMap绑定
@@ -33,7 +35,7 @@ export class SHomeworkComponent implements OnInit, OnChanges {
 
   updateHomework() {
     // 获取所有的选择题
-    this.nodeService.getMultiple(
+    this.nodeService.getStuMultiple(
       this.course_id,
       this.mind_id,
       this.node_id).subscribe(
@@ -45,6 +47,13 @@ export class SHomeworkComponent implements OnInit, OnChanges {
       this.mind_id,
       this.node_id).subscribe(
       value => this.setShort(value));
+
+    // 获取所有的选择题
+    this.nodeService.getStuJudge(
+      this.course_id,
+      this.mind_id,
+      this.node_id).subscribe(
+      value => this.setJudge(value));
   }
 
   setMultiple(value) {
@@ -53,6 +62,10 @@ export class SHomeworkComponent implements OnInit, OnChanges {
 
   setShort(value) {
     this.stuShorts = value;
+  }
+
+  setJudge(value) {
+    this.stuJudges = value;
   }
 
   // 提交选择题
@@ -78,16 +91,16 @@ export class SHomeworkComponent implements OnInit, OnChanges {
     }, 2000);
   }
 
-  // // 提交判断题
-  // submitJudge(stuMultiple: StuMultiple) {
-  //   this.nodeService.answerMultiple(
-  //     this.course_id,
-  //     this.mind_id,
-  //     this.node_id,
-  //     window.sessionStorage.getItem('user_name'),
-  //     stuMultiple).subscribe(
-  //     value => this.checkSubmit(value['success']));
-  // }
+  // 提交判断题
+  submitJudge(stuJudge: StuJudge) {
+    this.nodeService.answerJudge(
+      this.course_id,
+      this.mind_id,
+      this.node_id,
+      window.sessionStorage.getItem('user_name'),
+      stuJudge).subscribe(
+      value => this.checkSubmit(value['success']));
+  }
 
   // 检查提交
   checkSubmit(value) {

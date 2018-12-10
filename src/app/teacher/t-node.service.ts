@@ -6,7 +6,7 @@ import {Observable} from 'rxjs';
 import {MultipleQuestion} from './multiple-question';
 import {ShortQuestion} from '../short-question';
 import {Link} from '../link';
-import {JudgeQuestion} from '../judge-question';
+import {JudgeQuestion} from './judge-question';
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
