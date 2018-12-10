@@ -1,0 +1,38 @@
+<nz-tabset style="margin: 30px;">
+  <nz-tab nzTitle="已选课程">
+
+
+    <div id="courses">
+      <div nz-row [nzGutter]="20">
+        <div *ngFor="let course of courses" nz-col class="gutter-row" [nzSpan]="8">
+          <div class="course">
+            <div class="courseName">{{course.course_id}}: <b>{{course.course_name}}</b></div>
+            <div class="studentNumber">课程人数：{{course.course_number}}</div>
+            <button nz-button type="button" (click)="enterCourse(course.course_id)">进入课程</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+  </nz-tab>
+  <nz-tab nzTitle="所有课程">
+
+    <div id="allCourse">
+      <div nz-row [nzGutter]="20">
+        <div *ngFor="let course of allCourse" nz-col class="gutter-row" [nzSpan]="8">
+          <div class="course">
+            <div class="courseName">{{course.course_id}}: <b>{{course.course_name}}</b></div>
+            <div class="studentNumber">课程人数：{{course.course_number}}</div>
+            <button nz-button type="button" (click)="onSubmit(course)">选课</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+  </nz-tab>
+
+</nz-tabset>

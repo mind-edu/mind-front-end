@@ -1,0 +1,21 @@
+ul.color-list {
+    list-style: none;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+li.color-item {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.nodeOp {
+    margin-right: 10px;
+}
+
+#jsmind_container {
+    margin-top: 10px;
+    height: 500px;
+    border: 1px gainsboro solid;
+    border-radius: 5px;
+}

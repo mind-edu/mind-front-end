@@ -1,0 +1,20 @@
+<nz-collapse id="courseware-nz-collapse">
+  <!--课件资源面板-->
+  <nz-collapse-panel
+    [nzHeader]="'课件资源'"
+    [nzActive]="true"
+    [nzDisabled]="false">
+
+    <ol>
+      <li *ngFor="let courseware of courseware_names">
+        <a href="javascript:void(0)" (click)="download(courseware)"><b>{{courseware}}</b></a>
+
+        <!--分割线-->
+        <nz-divider></nz-divider>
+
+      </li>
+    </ol>
+
+  </nz-collapse-panel>
+
+</nz-collapse>

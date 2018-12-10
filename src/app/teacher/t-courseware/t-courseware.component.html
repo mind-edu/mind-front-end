@@ -1,0 +1,51 @@
+<nz-upload
+  nzName="courseware"
+  nzType="drag"
+  [nzMultiple]="true"
+  [nzLimit]="2"
+  [nzAction]="uploadUrl"
+  [nzFilter]="filters"
+  (nzChange)="handleChange($event)">
+
+  <p class="ant-upload-drag-icon">
+    <i nz-icon type="inbox"></i>
+  </p>
+  <p class="ant-upload-text">上传课件资源</p>
+  <p class="ant-upload-hint">
+    点击或拖拽文件到此处上传，限制课件类型为pdf
+    (如课件类型为ppt，请先转格式再上传)
+  </p>
+
+</nz-upload>
+
+
+<nz-collapse id="courseware-nz-collapse">
+  <!--课件资源面板-->
+  <nz-collapse-panel
+    [nzHeader]="'课件资源'"
+    [nzActive]="true"
+    [nzDisabled]="false">
+
+    <nz-list [nzDataSource]="courseware_names"
+             [nzRenderItem]="courseware_item">
+      <ng-template #courseware_item let-courseware_item>
+        <nz-list-item [nzContent]="courseware_item" [nzActions]="[previewAction, downloadAction]">
+          <ng-template #previewAction>
+            <a (click)="alert()">预览</a>
+          </ng-template>
+          <ng-template #downloadAction>
+            <a href="javascript:void(0)" (click)="download(courseware_item)">下载</a>
+          </ng-template>
+        </nz-list-item>
+      </ng-template>
+    </nz-list>
+
+  </nz-collapse-panel>
+
+</nz-collapse>
+
+<div id="previewArea">
+  <pdf-viewer [src]="{ url: 'http://www.fdcollege.fudan.edu.cn/_upload/article/files/ac/5b/ec69024646fe83171ac511fd2e2c/4a412586-5d44-44e2-a378-b1962bf47e86.pdf', withCredentials: true }" [render-text]="true"
+              style="display: block;"
+  ></pdf-viewer>
+</div>

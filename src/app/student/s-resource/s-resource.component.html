@@ -1,0 +1,38 @@
+<nz-collapse id="resource-nz-collapse">
+  <!--文件资源面板-->
+  <nz-collapse-panel
+    [nzHeader]="'文件资源'"
+    [nzActive]="true"
+    [nzDisabled]="false">
+
+    <ol>
+      <li *ngFor="let material of material_names">
+        <a href="javascript:void(0)" (click)="download(material)"><b>{{material}}</b></a>
+
+        <!--分割线-->
+        <nz-divider></nz-divider>
+
+      </li>
+    </ol>
+
+  </nz-collapse-panel>
+
+  <!--链接资源面板-->
+  <nz-collapse-panel
+    [nzHeader]="'链接资源'"
+    [nzActive]="false"
+    [nzDisabled]="false">
+
+    <ol>
+      <li *ngFor="let link of link_addresses"><a target="_blank" href="{{ link }}">{{link}}</a></li>
+    </ol>
+
+    <!--<nz-list [nzDataSource]="link_addresses" nzBordered-->
+             <!--[nzRenderItem]="link">-->
+      <!--<ng-template #link let-item>-->
+        <!--<nz-list-item [nzContent]="link"></nz-list-item>-->
+      <!--</ng-template>-->
+    <!--</nz-list>-->
+
+  </nz-collapse-panel>
+</nz-collapse>

@@ -1,0 +1,53 @@
+
+<div id="addCourse" class="buttonDiv">
+  <button nz-button type="button"
+          (click)="openModal(newCourseTitle, newCourseContent, newCourseFooter)">
+    添加课程
+  </button>
+</div>
+
+<div id="courses">
+  <div nz-row [nzGutter]="20">
+    <div *ngFor="let course of courses" nz-col class="gutter-row" [nzSpan]="8">
+      <div class="course">
+        <div class="courseName">{{course.course_id}}: <b>{{course.course_name}}</b></div>
+        <div class="studentNumber">课程人数：{{course.course_number}}</div>
+        <button nz-button type="button" (click)="enterCourse(course.course_id)">进入课程</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- 模板 发布新的课程 -->
+<ng-template #newCourseTitle>
+  <span>开设新课程</span>
+</ng-template>
+<ng-template #newCourseContent>
+
+  <form nz-form>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="5">课程ID</nz-form-label>
+      <nz-form-control [nzSpan]="12">
+        <input nz-input type="text" [(ngModel)]="course.course_id" name="course_id">
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="5">课程名称</nz-form-label>
+      <nz-form-control [nzSpan]="12">
+        <input nz-input type="text" [(ngModel)]="course.course_name" name="course_name">
+      </nz-form-control>
+    </nz-form-item>
+
+  </form>
+
+</ng-template>
+<ng-template #newCourseFooter>
+  <button nz-button nzType="primary"
+          (click)="onSubmit()"
+          [disabled]="course.course_name=='' || course.course_id==''">
+    提交
+  </button>
+</ng-template>
+

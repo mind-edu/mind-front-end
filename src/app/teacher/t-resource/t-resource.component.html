@@ -1,0 +1,146 @@
+<!--<nz-upload-->
+  <!--nzName="material"-->
+  <!--[(nzFileList)]="fileList"-->
+  <!--[nzBeforeUpload]="beforeUpload">-->
+  <!--<button nz-button>-->
+    <!--<i nz-icon type="upload"></i><span>选择文件</span>-->
+  <!--</button>-->
+<!--</nz-upload>-->
+<!--<button nz-button [nzType]="'primary'" [nzLoading]="uploading" (click)="handleUpload()" [disabled]="fileList.length == 0" style="margin-top: 16px">-->
+  <!--{{ uploading ? '正在上传' : '开始上传' }}-->
+<!--</button>-->
+
+<!--<nz-upload-->
+  <!--nzName="material"-->
+  <!--[nzAction]="uploadUrl"-->
+  <!--[nzFileList]="fileList"-->
+  <!--nzMultiple-->
+  <!--[nzLimit]="2"-->
+  <!--[nzFilter]="filters"-->
+  <!--(nzChange)="handleChange($event)">-->
+  <!--<button nz-button>-->
+    <!--<i nz-icon type="upload"></i><span>Upload</span>-->
+  <!--</button>-->
+<!--</nz-upload>-->
+
+<nz-upload
+  nzName="material"
+  nzType="drag"
+  [nzMultiple]="true"
+  [nzLimit]="2"
+  [nzAction]="uploadUrl"
+  [nzFilter]="filters"
+  (nzChange)="handleChange($event)">
+  <!--<button nz-button>-->
+    <!--<i nz-icon type="upload"></i><span>Upload</span>-->
+  <!--</button>-->
+
+  <p class="ant-upload-drag-icon">
+    <i nz-icon type="inbox"></i>
+  </p>
+  <p class="ant-upload-text">上传文件资源</p>
+  <p class="ant-upload-hint">点击或拖拽文件到此处上传</p>
+
+
+</nz-upload>
+
+
+
+<button nz-button [nzType]="'primary'" id="uploadLinkBtn" (click)="openLinkModal(newLinkTitle, newLinkContent, newLinkFooter)">
+  上传资源链接
+</button>
+
+
+<nz-collapse id="resource-nz-collapse">
+  <!--文件资源面板-->
+  <nz-collapse-panel
+    [nzHeader]="'文件资源'"
+    [nzActive]="true"
+    [nzDisabled]="false">
+
+    <!--<ol>-->
+      <!--<li *ngFor="let material of material_names">-->
+        <!--<a href="javascript:void(0)" (click)="download(material)"><b>{{material}}</b></a>-->
+
+        <!--&lt;!&ndash;分割线&ndash;&gt;-->
+        <!--<nz-divider></nz-divider>-->
+
+      <!--</li>-->
+    <!--</ol>-->
+
+    <nz-list [nzDataSource]="material_names"
+             [nzRenderItem]="material_item">
+      <ng-template #material_item let-material_item>
+        <nz-list-item [nzContent]="material_item" [nzActions]="[previewAction, downloadAction]">
+          <ng-template #previewAction><a>预览</a></ng-template>
+          <ng-template #downloadAction>
+            <a href="javascript:void(0)" (click)="download(material_item)">下载</a>
+          </ng-template>
+        </nz-list-item>
+      </ng-template>
+    </nz-list>
+
+
+  </nz-collapse-panel>
+
+  <!--链接资源面板-->
+  <nz-collapse-panel
+    [nzHeader]="'链接资源'"
+    [nzActive]="false"
+    [nzDisabled]="false">
+
+    <!--<ol>-->
+      <!--<li *ngFor="let link of link_addresses"><a target="_blank" href="{{ link }}">{{link}}</a></li>-->
+    <!--</ol>-->
+
+    <nz-list [nzDataSource]="link_addresses"
+             [nzRenderItem]="link_item">
+      <ng-template #link_item let-link_item>
+        <nz-list-item [nzContent]="link_item">
+          <a target="_blank" href="{{ link_item }}">{{link_item}}</a>
+        </nz-list-item>
+      </ng-template>
+    </nz-list>
+
+    <!--<nz-list-->
+      <!--[nzDataSource]="list"-->
+      <!--[nzItemLayout]="'horizontal'"-->
+      <!--[nzRenderItem]="item"-->
+      <!--[nzLoadMore]="loadMore">-->
+      <!--<ng-template #item let-item>-->
+        <!--<nz-list-item [nzContent]="item.loading?'':'content'" [nzActions]="item.loading?[]:[editAction,moreAction]">-->
+          <!--<nz-skeleton [nzAvatar]="true" [nzActive]="true" [nzTitle]="false" [nzLoading]="item.loading">-->
+            <!--<ng-template #editAction><a (click)="edit(item)">edit</a></ng-template>-->
+            <!--<ng-template #moreAction><a (click)="edit(item)">more</a></ng-template>-->
+            <!--<nz-list-item-meta-->
+              <!--[nzTitle]="nzTitle"-->
+              <!--nzAvatar="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"-->
+              <!--nzDescription="Ant Design, a design language for background applications, is refined by Ant UED Team">-->
+              <!--<ng-template #nzTitle>-->
+                <!--<a href="https://ng.ant.design">{{item.name.last}}</a>-->
+              <!--</ng-template>-->
+            <!--</nz-list-item-meta>-->
+          <!--</nz-skeleton>-->
+        <!--</nz-list-item>-->
+      <!--</ng-template>-->
+      <!--<ng-template #loadMore>-->
+        <!--<div class="loadmore">-->
+          <!--<button nz-button *ngIf="!loadingMore" (click)="onLoadMore()">loading more</button>-->
+        <!--</div>-->
+      <!--</ng-template>-->
+    <!--</nz-list>-->
+
+  </nz-collapse-panel>
+</nz-collapse>
+
+
+<!-- 模板 创建新的思维导图 -->
+<ng-template #newLinkTitle>
+  <span>发布新资源链接</span>
+</ng-template>
+<ng-template #newLinkContent>
+  <input nz-input placeholder="请输入资源url，需要以http或https开头。" [(ngModel)]="link_address">
+</ng-template>
+<ng-template #newLinkFooter>
+  <button nz-button nzType="primary" (click)="uploadLink()">提交</button>
+</ng-template>
