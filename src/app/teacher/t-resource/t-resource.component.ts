@@ -1,9 +1,9 @@
-import {Component, Input, OnChanges, OnInit, TemplateRef} from '@angular/core';
-import {TNodeService} from '../t-node.service';
-import {environment} from '../../../environments/environment';
-import {NzMessageService, NzModalRef, NzModalService, UploadFile, UploadFilter} from 'ng-zorro-antd';
-import {HttpClient, HttpRequest, HttpResponse} from '@angular/common/http';
-import {filter} from 'rxjs/operators';
+import { Component, Input, OnChanges, OnInit, TemplateRef } from '@angular/core';
+import { TNodeService } from '../t-node.service';
+import { environment } from '../../../environments/environment';
+import { NzMessageService, NzModalRef, NzModalService, UploadFile, UploadFilter } from 'ng-zorro-antd';
+import { HttpClient } from '@angular/common/http';
+import { Link} from '../../link';
 
 @Component({
   selector: 'app-t-resource',
@@ -19,8 +19,8 @@ export class TResourceComponent implements OnInit, OnChanges {
   @Input() node_id: string;
 
   material_names: string[] = [];
-  link_addresses: string[];
-  link_address: string;
+  links: any[];
+  link: Link = new Link();
 
   tplModal: NzModalRef;
 
@@ -62,38 +62,6 @@ export class TResourceComponent implements OnInit, OnChanges {
   ngOnInit() {
   }
 
-  // beforeUpload = (file: UploadFile): boolean => {
-  //   this.fileList.push(file);
-  //   return false;
-  // }
-
-  // handleUpload(): void {
-  //   const formData = new FormData();
-  //   // tslint:disable-next-line:no-any
-  //   this.fileList.forEach((file: any) => {
-  //     formData.append('material', file);
-  //   });
-  //   this.uploading = true;
-  //   // You can use any AJAX library you like
-  //   const req = new HttpRequest('POST', this.uploadUrl, formData, {
-  //     withCredentials: false
-  //   });
-  //   this.http
-  //     .request(req)
-  //     .pipe(filter(e => e instanceof HttpResponse))
-  //     .subscribe(
-  //       (event: {}) => {
-  //         this.uploading = false;
-  //         this.updateResources();
-  //         this.msg.success('上传成功');
-  //       },
-  //       err => {
-  //         this.uploading = false;
-  //         this.msg.error('上传失败');
-  //       }
-  //     );
-  // }
-
   ngOnChanges() {
     this.uploadUrl = environment.apiUrl + 'upload_material/'
       + this.course_id + '/' + this.mind_id + '/' + this.node_id + '/';
@@ -130,7 +98,7 @@ export class TResourceComponent implements OnInit, OnChanges {
   }
 
   setLinkAddrs(value) {
-    this.link_addresses = value;
+    this.links = value;
   }
 
   openLinkModal(
@@ -151,7 +119,7 @@ export class TResourceComponent implements OnInit, OnChanges {
       this.course_id,
       this.mind_id,
       this.node_id,
-      this.link_address).subscribe(
+      this.link).subscribe(
       value => {
         this.checkLink(value['success']);
         this.tplModal.destroy();
@@ -162,7 +130,7 @@ export class TResourceComponent implements OnInit, OnChanges {
     if (value) {
       this.updateLinks();
       this.msg.success('上传成功');
-      this.link_address = '';
+      this.link = new Link();
     }
   }
 

@@ -1,5 +1,7 @@
 import {Component, Input, OnChanges, OnInit} from '@angular/core';
 import {SNodeService} from '../s-node.service';
+import {environment} from '../../../environments/environment';
+import {NzMessageService} from 'ng-zorro-antd';
 
 @Component({
   selector: 'app-s-courseware',
@@ -14,8 +16,14 @@ export class SCoursewareComponent implements OnInit, OnChanges {
 
   courseware_names: string[] = [];
 
+  courseware_url = ''; // 课件资源的地址
+  totalPages: number;
+  page = 1; // 课件预览的页码
+
+
   constructor(
-    private nodeService: SNodeService
+    private nodeService: SNodeService,
+    private msg: NzMessageService
   ) { }
 
   ngOnInit() {
@@ -38,5 +46,18 @@ export class SCoursewareComponent implements OnInit, OnChanges {
       this.nodeService.downFile(r, file_name);
     });
   }
+
+  loadCourseware(file_name: string) {
+    const apiUrl =  environment.apiUrl;
+    this.courseware_url = `${apiUrl}view_courseware/${this.course_id}/${this.mind_id}/${this.node_id}/${file_name}`;
+    this.page = 1;
+    this.msg.info('请在资源列表下方查看');
+  }
+
+  // pdf加载完成之后
+  afterLoadComplete(pdfData: any) {
+    this.totalPages = pdfData.numPages;
+  }
+
 
 }

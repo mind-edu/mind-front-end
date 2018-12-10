@@ -57,7 +57,6 @@ export class SHomeworkComponent implements OnInit, OnChanges {
 
   // 提交选择题
   submitMultiple(stuMultiple: StuMultiple) {
-    console.log('answer -> ' + stuMultiple.answer);
     this.nodeService.answerMultiple(
       this.course_id,
       this.mind_id,
@@ -78,6 +77,17 @@ export class SHomeworkComponent implements OnInit, OnChanges {
       inModal.destroy();
     }, 2000);
   }
+
+  // // 提交判断题
+  // submitJudge(stuMultiple: StuMultiple) {
+  //   this.nodeService.answerMultiple(
+  //     this.course_id,
+  //     this.mind_id,
+  //     this.node_id,
+  //     window.sessionStorage.getItem('user_name'),
+  //     stuMultiple).subscribe(
+  //     value => this.checkSubmit(value['success']));
+  // }
 
   // 检查提交
   checkSubmit(value) {

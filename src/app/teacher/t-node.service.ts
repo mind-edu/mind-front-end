@@ -5,6 +5,8 @@ import {environment} from '../../environments/environment';
 import {Observable} from 'rxjs';
 import {MultipleQuestion} from './multiple-question';
 import {ShortQuestion} from '../short-question';
+import {Link} from '../link';
+import {JudgeQuestion} from '../judge-question';
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -35,6 +37,12 @@ export class TNodeService {
     return this.http.get<ShortQuestion[]>(this.tempUrl);
   }
 
+  // 教师获取判断题列表
+  getJudge(course_id: string, mindmap_id: string, node_id: string): Observable<JudgeQuestion[]> {
+    this.tempUrl = this.baseUrl + 'judgments_teacher/' + course_id + '/' + mindmap_id + '/' + node_id;
+    return this.http.get<JudgeQuestion[]>(this.tempUrl);
+  }
+
   // 教师发布选择题
   releaseMutiple(course_id: string, mindmap_id: string, node_id: string, multiple: MultipleQuestion): Observable<boolean> {
     this.tempUrl = this.baseUrl + 'release_multiple/' + course_id + '/' + mindmap_id + '/' + node_id;
@@ -47,17 +55,11 @@ export class TNodeService {
     return this.http.post<boolean>(this.tempUrl, short, httpOptions);
   }
 
-  // // 学生获取选择题列表
-  // getStuMultiple(course_id: string, mindmap_id: string, node_id: string): Observable<StuMultiple[]> {
-  //   this.tempUrl = this.baseUrl + 'multiples_student/' + course_id + '/' + mindmap_id + '/' + node_id;
-  //   return this.http.get<StuMultiple[]>(this.tempUrl);
-  // }
-  //
-  // // 学生回答选择题
-  // answerMultiple(course_id: string, mindmap_id: string, node_id: string, user_name: string, stuMultiple: StuMultiple): Observable<boolean> {
-  //   this.tempUrl = this.baseUrl + 'answer_multiple/' + course_id + '/' + mindmap_id + '/' + node_id + '/' + user_name;
-  //   return this.http.post<boolean>(this.tempUrl, stuMultiple, httpOptions);
-  // }
+  // 教师发布判断题
+  releaseJudge(course_id: string, mindmap_id: string, node_id: string, judge: JudgeQuestion): Observable<boolean> {
+    this.tempUrl = this.baseUrl + 'release_judgement/' + course_id + '/' + mindmap_id + '/' + node_id;
+    return this.http.post<boolean>(this.tempUrl, judge, httpOptions);
+  }
 
   // 获取资源列表
   getMaterials(course_id: string, mind_id: string, node_id: string): Observable<string[]> {
@@ -76,7 +78,7 @@ export class TNodeService {
     return this.http.get<string[]>(this.tempUrl);
   }
 
-  upload_link(course_id: string, mind_id: string, node_id: string, link_addr: string): Observable<boolean> {
+  upload_link(course_id: string, mind_id: string, node_id: string, link_addr: Link): Observable<boolean> {
     this.tempUrl = this.baseUrl + 'upload_link/' + course_id + '/' + mind_id + '/' + node_id;
     const target = {'link_address': link_addr};
     return this.http.post<boolean>(this.tempUrl, target, httpOptions);
@@ -111,27 +113,4 @@ export class TNodeService {
     URL.revokeObjectURL(objectUrl);
   }
 
-  // // 获取我的公有笔记
-  // getPublicNotes(user_name: string, course_id: string, mind_id: string, node_id: string): Observable<Note[]> {
-  //   this.tempUrl = this.baseUrl + 'public_note/' + user_name + '/' + course_id + '/' + mind_id + '/' + node_id;
-  //   return this.http.get<Note[]>(this.tempUrl);
-  // }
-  //
-  // // 获取我的私有笔记
-  // getPrivateNotes(user_name: string, course_id: string, mind_id: string, node_id: string): Observable<Note[]> {
-  //   this.tempUrl = this.baseUrl + 'private_note/' + user_name + '/' + course_id + '/' + mind_id + '/' + node_id;
-  //   return this.http.get<Note[]>(this.tempUrl);
-  // }
-  //
-  // // 获取其他人的公有笔记
-  // getOtherNotes(user_name: string, course_id: string, mind_id: string, node_id: string): Observable<Note[]> {
-  //   this.tempUrl = this.baseUrl + 'search_note/' + user_name + '/' + course_id + '/' + mind_id + '/' + node_id;
-  //   return this.http.get<Note[]>(this.tempUrl);
-  // }
-  //
-  // // 发布笔记
-  // addNote(user_name: string, course_id: string, mind_id: string, node_id: string, note: Note): Observable<boolean> {
-  //   this.tempUrl = this.baseUrl + 'add_note/' + user_name + '/' + course_id + '/' + mind_id + '/' + node_id;
-  //   return this.http.post<boolean>(this.tempUrl, note, httpOptions);
-  // }
 }

@@ -5,16 +5,41 @@
     [nzActive]="true"
     [nzDisabled]="false">
 
-    <ol>
-      <li *ngFor="let courseware of courseware_names">
-        <a href="javascript:void(0)" (click)="download(courseware)"><b>{{courseware}}</b></a>
-
-        <!--分割线-->
-        <nz-divider></nz-divider>
-
-      </li>
-    </ol>
+    <nz-list [nzDataSource]="courseware_names"
+             [nzRenderItem]="courseware_item">
+      <ng-template #courseware_item let-courseware_item>
+        <nz-list-item [nzContent]="courseware_item" [nzActions]="[previewAction, downloadAction]">
+          <ng-template #previewAction>
+            <a (click)="loadCourseware(courseware_item)">预览</a>
+          </ng-template>
+          <ng-template #downloadAction>
+            <a href="javascript:void(0)" (click)="download(courseware_item)">下载</a>
+          </ng-template>
+        </nz-list-item>
+      </ng-template>
+    </nz-list>
 
   </nz-collapse-panel>
 
 </nz-collapse>
+
+<div *ngIf="courseware_url!=''" style="margin-top: 15px;">
+  页码：
+  <nz-input-number
+
+    [(ngModel)]="page"
+    [nzMin]="1" [nzMax]="totalPages"
+    [nzStep]="1"
+    style="margin-top: 15px">
+  </nz-input-number> <button nz-button (click)="courseware_url=''" style="margin-left: 10px;"> 取消预览 </button>
+
+  <pdf-viewer
+    [src]="courseware_url"
+    [show-all]="false"
+    [page]="page"
+    [original-size]="false"
+    [autoresize]="true"
+    (after-load-complete)="afterLoadComplete($event)"
+    style="display: block; margin-top: 20px;">
+  </pdf-viewer>
+</div>

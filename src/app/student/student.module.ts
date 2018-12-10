@@ -12,6 +12,8 @@ import { SResourceComponent } from './s-resource/s-resource.component';
 import { SCoursewareComponent } from './s-courseware/s-courseware.component';
 import { SHomeworkComponent } from './s-homework/s-homework.component';
 
+import { PdfViewerModule } from 'ng2-pdf-viewer';
+
 @NgModule({
   declarations: [
     SCoursesComponent,
@@ -27,6 +29,7 @@ import { SHomeworkComponent } from './s-homework/s-homework.component';
     FormsModule,
     NgZorroAntdModule,
     StudentRoutingModule,
+    PdfViewerModule
   ]
 })
 export class StudentModule { }

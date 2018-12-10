@@ -89,10 +89,6 @@
     [nzActive]="false"
     [nzDisabled]="false">
 
-    <!--<ol>-->
-      <!--<li *ngFor="let link of link_addresses"><a target="_blank" href="{{ link }}">{{link}}</a></li>-->
-    <!--</ol>-->
-
     <nz-list [nzDataSource]="link_addresses"
              [nzRenderItem]="link_item">
       <ng-template #link_item let-link_item>
@@ -101,34 +97,6 @@
         </nz-list-item>
       </ng-template>
     </nz-list>
-
-    <!--<nz-list-->
-      <!--[nzDataSource]="list"-->
-      <!--[nzItemLayout]="'horizontal'"-->
-      <!--[nzRenderItem]="item"-->
-      <!--[nzLoadMore]="loadMore">-->
-      <!--<ng-template #item let-item>-->
-        <!--<nz-list-item [nzContent]="item.loading?'':'content'" [nzActions]="item.loading?[]:[editAction,moreAction]">-->
-          <!--<nz-skeleton [nzAvatar]="true" [nzActive]="true" [nzTitle]="false" [nzLoading]="item.loading">-->
-            <!--<ng-template #editAction><a (click)="edit(item)">edit</a></ng-template>-->
-            <!--<ng-template #moreAction><a (click)="edit(item)">more</a></ng-template>-->
-            <!--<nz-list-item-meta-->
-              <!--[nzTitle]="nzTitle"-->
-              <!--nzAvatar="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"-->
-              <!--nzDescription="Ant Design, a design language for background applications, is refined by Ant UED Team">-->
-              <!--<ng-template #nzTitle>-->
-                <!--<a href="https://ng.ant.design">{{item.name.last}}</a>-->
-              <!--</ng-template>-->
-            <!--</nz-list-item-meta>-->
-          <!--</nz-skeleton>-->
-        <!--</nz-list-item>-->
-      <!--</ng-template>-->
-      <!--<ng-template #loadMore>-->
-        <!--<div class="loadmore">-->
-          <!--<button nz-button *ngIf="!loadingMore" (click)="onLoadMore()">loading more</button>-->
-        <!--</div>-->
-      <!--</ng-template>-->
-    <!--</nz-list>-->
 
   </nz-collapse-panel>
 </nz-collapse>
@@ -139,6 +107,7 @@
   <span>发布新资源链接</span>
 </ng-template>
 <ng-template #newLinkContent>
+  <input nz-input placeholder="请输入资源名称" [(ngModel)]="link_address">
   <input nz-input placeholder="请输入资源url，需要以http或https开头。" [(ngModel)]="link_address">
 </ng-template>
 <ng-template #newLinkFooter>

@@ -63,8 +63,8 @@ export class TCourseComponent implements OnInit {
     }
   }; // 用作创建新思维导图时填充
 
-  selectedIndex = 0;
-  tabsName = ['思维导图', '作业', '资源', '课件'];
+  selectedIndex = 0; // tab序号
+  tabsName = ['思维导图', '作业', '资源', '课件']; // tab名称
 
   constructor(
     private route: ActivatedRoute,
@@ -78,7 +78,6 @@ export class TCourseComponent implements OnInit {
 
   ngOnInit() {
     this.course_id = this.route.snapshot.paramMap.get('id');
-    console.log('course->' + this.course_id);
 
     this.mindmapService.getMindmapList(this.course_id).subscribe(list => {
 
@@ -115,7 +114,6 @@ export class TCourseComponent implements OnInit {
       this.promptSave().afterClose.subscribe(
         () => {
           this.currentMindmap = mindmap;
-          console.log(this.isChanged);
         });
     } else {
       this.currentMindmap = mindmap;

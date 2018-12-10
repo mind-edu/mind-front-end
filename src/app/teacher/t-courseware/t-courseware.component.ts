@@ -1,8 +1,7 @@
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import {Component, Input, OnChanges, OnInit, ViewChild} from '@angular/core';
 import { TNodeService } from '../t-node.service';
 import { environment } from '../../../environments/environment';
 import { NzMessageService, UploadFile, UploadFilter } from 'ng-zorro-antd';
-import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-t-courseware',
@@ -33,23 +32,12 @@ export class TCoursewareComponent implements OnInit, OnChanges {
     }
   ]; // 限制课件类型
 
-  // 处理文件上传之后的消息
-  handleChange({ file, fileList }): void {
-    const status = file.status;
-    if (status !== 'uploading') {
-      console.log(file, fileList);
-    }
-    if (status === 'done') {
-      this.msg.success(`课件 ${file.name} 上传成功`);
-    } else if (status === 'error') {
-      this.msg.error(`课件 ${file.name} 上传失败`);
-    }
-    this.updateCoursewares();
-  }
+  courseware_url = ''; // 课件资源的地址
+  totalPages: number;
+  page = 1; // 课件预览的页码
 
   constructor(
     private nodeService: TNodeService,
-    private http: HttpClient,
     private msg: NzMessageService
   ) { }
 
@@ -80,8 +68,30 @@ export class TCoursewareComponent implements OnInit, OnChanges {
         });
   }
 
-  alert() {
-    console.log('滚动鼠标到下方查看');
+  // 处理文件上传之后的消息
+  handleChange({ file, fileList }): void {
+    const status = file.status;
+    if (status !== 'uploading') {
+      console.log(file, fileList);
+    }
+    if (status === 'done') {
+      this.msg.success(`课件 ${file.name} 上传成功`);
+    } else if (status === 'error') {
+      this.msg.error(`课件 ${file.name} 上传失败`);
+    }
+    this.updateCoursewares();
+  }
+
+  loadCourseware(file_name: string) {
+    const apiUrl =  environment.apiUrl;
+    this.courseware_url = `${apiUrl}view_courseware/${this.course_id}/${this.mind_id}/${this.node_id}/${file_name}`;
+    this.page = 1;
+    this.msg.info('请在资源列表下方查看');
+  }
+
+  // pdf加载完成之后
+  afterLoadComplete(pdfData: any) {
+    this.totalPages = pdfData.numPages;
   }
 
 
