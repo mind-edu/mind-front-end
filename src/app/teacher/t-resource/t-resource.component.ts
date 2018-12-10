@@ -19,7 +19,7 @@ export class TResourceComponent implements OnInit, OnChanges {
   @Input() node_id: string;
 
   material_names: string[] = [];
-  links: any[];
+  links: Link[];
   link: Link = new Link();
 
   tplModal: NzModalRef;
@@ -115,7 +115,6 @@ export class TResourceComponent implements OnInit, OnChanges {
   }
 
   uploadLink() {
-    console.log('hello world');
     this.nodeService.upload_link(
       this.course_id,
       this.mind_id,

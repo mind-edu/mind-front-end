@@ -1,5 +1,6 @@
 import {Component, Input, OnChanges, OnInit} from '@angular/core';
 import {SNodeService} from '../s-node.service';
+import {Link} from '../../link';
 
 @Component({
   selector: 'app-s-resource',
@@ -13,7 +14,7 @@ export class SResourceComponent implements OnInit, OnChanges {
   @Input() node_id: string;
 
   material_names: string[] = [];
-  link_addresses: string[];
+  links: Link[];
 
   constructor(
     private nodeService: SNodeService
@@ -51,7 +52,7 @@ export class SResourceComponent implements OnInit, OnChanges {
   }
 
   setLinkAddrs(value) {
-    this.link_addresses = value;
+    this.links = value;
   }
 
 }

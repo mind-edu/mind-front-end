@@ -78,10 +78,9 @@ export class TNodeService {
     return this.http.get<string[]>(this.tempUrl);
   }
 
-  upload_link(course_id: string, mind_id: string, node_id: string, link_addr: Link): Observable<boolean> {
+  upload_link(course_id: string, mind_id: string, node_id: string, link: Link): Observable<boolean> {
     this.tempUrl = this.baseUrl + 'upload_link/' + course_id + '/' + mind_id + '/' + node_id;
-    const target = {'link_address': link_addr};
-    return this.http.post<boolean>(this.tempUrl, target, httpOptions);
+    return this.http.post<boolean>(this.tempUrl, link, httpOptions);
   }
 
   requestMaterialBlob(course_id: string, mind_id: string, node_id: string, material_name: string): Observable<any> {
