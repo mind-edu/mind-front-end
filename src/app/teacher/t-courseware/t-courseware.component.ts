@@ -17,14 +17,16 @@ export class TCoursewareComponent implements OnInit, OnChanges {
   @Input() node_id: string; // 当前选中的节点
 
   courseware_names: string[] = []; // 记录从服务器获取的的课件资源
+  pdf_names: string[];
+  mp4_names: string[];
 
   filters: UploadFilter[] = [
     {
       name: 'type',
       fn  : (fileList: UploadFile[]) => {
-        const filterFiles = fileList.filter(w => ~['application/pdf'].indexOf(w.type));
+        const filterFiles = fileList.filter(w => ['application/pdf', 'video/mp4'].indexOf(w.type) >= 0);
         if (filterFiles.length !== fileList.length) {
-          this.msg.error(`包含文件格式不正确，只支持 pdf 格式`);
+          this.msg.error(`包含文件格式不正确，只支持 mp4 与 pdf 格式`);
           return filterFiles;
         }
         return fileList;
@@ -32,9 +34,11 @@ export class TCoursewareComponent implements OnInit, OnChanges {
     }
   ]; // 限制课件类型
 
-  courseware_url = ''; // 课件资源的地址
+  pdf_url = ''; // 课件资源的地址
   totalPages: number;
   page = 1; // 课件预览的页码
+
+  mp4_url = '';
 
   constructor(
     private nodeService: TNodeService,
@@ -56,6 +60,8 @@ export class TCoursewareComponent implements OnInit, OnChanges {
   updateCoursewares() {
     this.nodeService.getCoursewares(this.course_id, this.mind_id, this.node_id).subscribe(r => {
       this.courseware_names = r;
+      this.pdf_names = r.filter(w => w.endsWith('.pdf'));
+      this.mp4_names = r.filter(w => w.endsWith('.mp4'));
     });
   }
 
@@ -82,11 +88,17 @@ export class TCoursewareComponent implements OnInit, OnChanges {
     this.updateCoursewares();
   }
 
-  loadCourseware(file_name: string) {
+  loadPdf(file_name: string) {
     const apiUrl =  environment.apiUrl;
-    this.courseware_url = `${apiUrl}view_courseware/${this.course_id}/${this.mind_id}/${this.node_id}/${file_name}`;
+    this.pdf_url = `${apiUrl}view_courseware/${this.course_id}/${this.mind_id}/${this.node_id}/${file_name}`;
     this.page = 1;
-    this.msg.info('请在资源列表下方查看');
+    this.msg.info('请在下方查看');
+  }
+
+  loadMp4(file_name: string) {
+    const apiUrl =  environment.apiUrl;
+    this.mp4_url = `${apiUrl}view_courseware/${this.course_id}/${this.mind_id}/${this.node_id}/${file_name}`;
+    this.msg.info('请在下方查看');
   }
 
   // pdf加载完成之后

@@ -118,7 +118,7 @@
     <nz-form-item>
       <nz-form-label [nzSpan]="5">问题标题</nz-form-label>
       <nz-form-control [nzSpan]="12">
-        <input nz-input type="text" [(ngModel)]="multiple.title" name="mtitle">
+        <textarea nz-input [(ngModel)]="multiple.title" name="mtitle"></textarea>
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>
@@ -186,7 +186,7 @@
     <nz-form-item>
       <nz-form-label [nzSpan]="5">问题标题</nz-form-label>
       <nz-form-control [nzSpan]="12">
-        <input nz-input type="text" [(ngModel)]="short.title" name="stitle">
+        <textarea nz-input type="text" [(ngModel)]="short.title" name="stitle"></textarea>
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>
@@ -218,7 +218,7 @@
     <nz-form-item>
       <nz-form-label [nzSpan]="5">问题标题</nz-form-label>
       <nz-form-control [nzSpan]="12">
-        <input nz-input type="text" [(ngModel)]="judge.title" name="jtitle">
+        <textarea nz-input [(ngModel)]="judge.title" name="jtitle"></textarea>
       </nz-form-control>
     </nz-form-item>
 

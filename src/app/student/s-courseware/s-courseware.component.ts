@@ -15,10 +15,14 @@ export class SCoursewareComponent implements OnInit, OnChanges {
   @Input() node_id: string;
 
   courseware_names: string[] = [];
+  pdf_names: string[];
+  mp4_names: string[];
 
-  courseware_url = ''; // 课件资源的地址
+  pdf_url = ''; // 课件资源的地址
   totalPages: number;
   page = 1; // 课件预览的页码
+
+  mp4_url = '';
 
 
   constructor(
@@ -36,6 +40,8 @@ export class SCoursewareComponent implements OnInit, OnChanges {
   updateCoursewares() {
     this.nodeService.getCoursewares(this.course_id, this.mind_id, this.node_id).subscribe(r => {
       this.courseware_names = r;
+      this.pdf_names = r.filter(w => w.endsWith('.pdf'));
+      this.mp4_names = r.filter(w => w.endsWith('.mp4'));
     });
   }
 
@@ -47,11 +53,17 @@ export class SCoursewareComponent implements OnInit, OnChanges {
     });
   }
 
-  loadCourseware(file_name: string) {
+  loadPdf(file_name: string) {
     const apiUrl =  environment.apiUrl;
-    this.courseware_url = `${apiUrl}view_courseware/${this.course_id}/${this.mind_id}/${this.node_id}/${file_name}`;
+    this.pdf_url = `${apiUrl}view_courseware/${this.course_id}/${this.mind_id}/${this.node_id}/${file_name}`;
     this.page = 1;
     this.msg.info('请在资源列表下方查看');
+  }
+
+  loadMp4(file_name: string) {
+    const apiUrl =  environment.apiUrl;
+    this.mp4_url = `${apiUrl}view_courseware/${this.course_id}/${this.mind_id}/${this.node_id}/${file_name}`;
+    this.msg.info('请在下方查看');
   }
 
   // pdf加载完成之后

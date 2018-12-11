@@ -22,19 +22,40 @@
 <nz-collapse id="courseware-nz-collapse">
   <!--课件资源面板-->
   <nz-collapse-panel
-    [nzHeader]="'课件资源'"
+    [nzHeader]="'Pdf课件'"
     [nzActive]="true"
     [nzDisabled]="false">
 
-    <nz-list [nzDataSource]="courseware_names"
-             [nzRenderItem]="courseware_item">
-      <ng-template #courseware_item let-courseware_item>
-        <nz-list-item [nzContent]="courseware_item" [nzActions]="[previewAction, downloadAction]">
+    <nz-list [nzDataSource]="pdf_names"
+             [nzRenderItem]="pdf_item">
+      <ng-template #pdf_item let-pdf_item>
+        <nz-list-item [nzContent]="pdf_item" [nzActions]="[previewAction, downloadAction]">
           <ng-template #previewAction>
-            <a (click)="loadCourseware(courseware_item)">预览</a>
+            <a (click)="loadPdf(pdf_item)">预览</a>
           </ng-template>
           <ng-template #downloadAction>
-            <a href="javascript:void(0)" (click)="download(courseware_item)">下载</a>
+            <a (click)="download(pdf_item)">下载</a>
+          </ng-template>
+        </nz-list-item>
+      </ng-template>
+    </nz-list>
+
+  </nz-collapse-panel>
+
+  <nz-collapse-panel
+    [nzHeader]="'视频课件'"
+    [nzActive]="true"
+    [nzDisabled]="false">
+
+    <nz-list [nzDataSource]="mp4_names"
+             [nzRenderItem]="mp4_item">
+      <ng-template #mp4_item let-mp4_item>
+        <nz-list-item [nzContent]="mp4_item" [nzActions]="[previewAction, downloadAction]">
+          <ng-template #previewAction>
+            <a (click)="loadMp4(mp4_item)">预览</a>
+          </ng-template>
+          <ng-template #downloadAction>
+            <a (click)="download(mp4_item)">下载</a>
           </ng-template>
         </nz-list-item>
       </ng-template>
@@ -44,7 +65,7 @@
 
 </nz-collapse>
 
-<div *ngIf="courseware_url!=''" style="margin-top: 15px;">
+<div *ngIf="pdf_url!=''" style="margin-top: 15px;">
   页码：
   <nz-input-number
 
@@ -52,10 +73,10 @@
     [nzMin]="1" [nzMax]="totalPages"
     [nzStep]="1"
     style="margin-top: 15px">
-  </nz-input-number> <button nz-button (click)="courseware_url=''" style="margin-left: 10px;"> 取消预览 </button>
+  </nz-input-number> <button nz-button (click)="pdf_url=''" style="margin-left: 10px;"> 取消预览 </button>
 
   <pdf-viewer
-    [src]="courseware_url"
+    [src]="pdf_url"
     [show-all]="false"
     [page]="page"
     [original-size]="false"
@@ -63,4 +84,14 @@
     (after-load-complete)="afterLoadComplete($event)"
     style="display: block; margin-top: 20px;">
   </pdf-viewer>
+</div>
+
+<div *ngIf="mp4_url!=''" style="margin-top: 15px; padding: 10px;">
+
+  <button nz-button (click)="mp4_url=''" style="margin-left: 10px;"> 取消预览 </button>
+
+  <div style="margin-top: 15px;">
+    <video [src]="mp4_url" controls="controls" width="100%"></video>
+  </div>
+
 </div>
