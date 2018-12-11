@@ -5,11 +5,7 @@
   [nzMultiple]="true"
   [nzLimit]="2"
   [nzAction]="uploadUrl"
-  [nzFilter]="filters"
   (nzChange)="handleChange($event)">
-  <!--<button nz-button>-->
-    <!--<i nz-icon type="upload"></i><span>Upload</span>-->
-  <!--</button>-->
 
   <p class="ant-upload-drag-icon">
     <i nz-icon type="inbox"></i>
@@ -37,10 +33,9 @@
     <nz-list [nzDataSource]="material_names"
              [nzRenderItem]="material_item">
       <ng-template #material_item let-material_item>
-        <nz-list-item [nzContent]="material_item" [nzActions]="[previewAction, downloadAction]">
-          <ng-template #previewAction><a>预览</a></ng-template>
+        <nz-list-item [nzContent]="material_item" [nzActions]="[downloadAction]">
           <ng-template #downloadAction>
-            <a href="javascript:void(0)" (click)="download(material_item)">下载</a>
+            <a (click)="download(material_item)">下载</a>
           </ng-template>
         </nz-list-item>
       </ng-template>

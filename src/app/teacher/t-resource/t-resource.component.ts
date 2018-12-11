@@ -24,20 +24,6 @@ export class TResourceComponent implements OnInit, OnChanges {
 
   tplModal: NzModalRef;
 
-  filters: UploadFilter[] = [
-    {
-      name: 'type',
-      fn  : (fileList: UploadFile[]) => {
-        const filterFiles = fileList.filter(w => ~['application/pdf'].indexOf(w.type));
-        if (filterFiles.length !== fileList.length) {
-          this.msg.error(`包含文件格式不正确，只支持 pdf 格式`);
-          return filterFiles;
-        }
-        return fileList;
-      }
-    }
-  ];
-
   // tslint:disable-next-line:typedef
   handleChange({ file, fileList }): void {
     const status = file.status;
