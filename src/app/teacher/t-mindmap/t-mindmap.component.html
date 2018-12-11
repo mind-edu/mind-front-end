@@ -49,6 +49,12 @@
 
   <button nz-button (click)="switchShowBarCharts()">显示答题情况柱状图</button>
 
+  <div id="colorExplanation">
+    <div id="colorDiv"></div>
+    颜色从左到右表示准确率逐渐提高
+  </div>
+
+
 </div>
 
 <div *ngIf="accuracyMode && showBarCharts" style="margin-top: 15px;" echarts [options]="chartOption" class="demo-chart"></div>

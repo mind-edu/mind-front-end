@@ -19,3 +19,16 @@ li.color-item {
     border: 1px gainsboro solid;
     border-radius: 5px;
 }
+
+#colorDiv {
+    display: inline-block;
+    background: linear-gradient(to right, #f00, #ffff00 , #0f0);
+    height: 30px;
+    width: 120px;
+    vertical-align: middle;
+}
+
+#colorExplanation {
+    display: inline-block;
+    float: right;
+}

@@ -38,6 +38,7 @@
                            nzCheckedChildren="开"
                            nzUnCheckedChildren="关"
                            [nzControl]="true"
+                           [nzDisabled]="selectedIndex!=0"
                            (click)="clickSwitch()">
 
                 </nz-switch>

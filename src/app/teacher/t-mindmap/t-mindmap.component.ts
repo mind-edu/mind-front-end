@@ -265,7 +265,10 @@ export class TMindmapComponent implements OnInit {
       r => {
         // todo 遍历每个节点改变颜色
         for (const a of r) {
+
           const color = this.accuracy2ColorHex(Number.parseFloat(a['accuracy']));
+          console.log(a['node_topic'] + '->' + a['accuracy'] + '->' + color);
+
           this.mindMap.set_node_color(a['node_id'], color, '#fff');
         }
 
@@ -275,11 +278,12 @@ export class TMindmapComponent implements OnInit {
   }
 
   accuracy2ColorHex(accuracy: number) {
-    let r, g = 0;
+    let r = 255, g = 0;
     if (accuracy - 0.5 < 0) {
-      r = 255 - 255 * 2 * accuracy;
+      g = 255 * 2 * accuracy;
     } else {
-      g = 255 * 2 * (accuracy - 0.5);
+      g = 255;
+      r = 255 - 255 * 2 * (accuracy - 0.5);
     }
 
     return this.colorService.rgbaToHex(new Rgba(r, g, 0, 0));
