@@ -47,9 +47,14 @@
 
           <!-- 显示当前课程学生列表 -->
           <li nz-menu-group>
-            <span title>学生列表</span>
+            <span title>课程信息</span>
             <ul>
-              <li nz-menu-item *ngFor="let student of studentList">{{student['name']}}</li>
+
+              <li nz-submenu>
+                <span title><i nz-icon type="picture"></i>学生列表</span>
+                <ul>
+                  <li nz-menu-item *ngFor="let student of studentList">{{student['name']}}</li>
+                </ul>
             </ul>
           </li>
 
