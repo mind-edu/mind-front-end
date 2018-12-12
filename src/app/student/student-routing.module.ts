@@ -3,14 +3,14 @@ import { Routes, RouterModule } from '@angular/router';
 import { SMainComponent } from './s-main/s-main.component';
 import { SCoursesComponent } from './s-courses/s-courses.component';
 import { SCourseComponent } from './s-course/s-course.component';
-import { AuthGuard } from '../auth/auth.guard';
+import {AuthStudentGuard} from './auth-student.guard';
 
 const studentRoutes: Routes = [
   {
     path: 's',
     component: SMainComponent,
-    canActivate: [AuthGuard],
-    canActivateChild: [AuthGuard],
+    canActivate: [AuthStudentGuard],
+    canActivateChild: [AuthStudentGuard],
     children: [
       {path: '', redirectTo: 'courses', pathMatch: 'full'},
       {path: 'courses', component: SCoursesComponent},

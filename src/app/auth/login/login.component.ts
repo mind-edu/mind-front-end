@@ -44,6 +44,7 @@ export class LoginComponent implements OnInit {
     // 发送信息
     this.userService.login(this.user).subscribe(value => {
       if (value['success']) {
+        this.storeUserInfo(); // 存储用户信息
 
         const inModal = this.modalService.success(
             {
@@ -53,7 +54,6 @@ export class LoginComponent implements OnInit {
 
         window.setTimeout(() => {
           inModal.destroy();
-          this.storeUserInfo(); // 存储用户信息
           this.destroyModal();
 
           if (this.user.identity === 'teacher') {

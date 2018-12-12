@@ -127,6 +127,7 @@ export class RegisterComponent implements OnInit {
         .subscribe(value => {
           console.log('result->' + value);
           if (value['success']) {
+            this.storeUserInfo(); // 存储用户信息
 
             const inModal = this.modalService.success(
                 {
@@ -136,7 +137,6 @@ export class RegisterComponent implements OnInit {
 
             window.setTimeout(() => {
               inModal.destroy();
-              this.storeUserInfo(); // 存储用户信息
               this.destroyModal();
 
               if (this.user.identity === 'teacher') {

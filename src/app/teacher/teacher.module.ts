@@ -18,13 +18,13 @@ import { NgxEchartsModule } from 'ngx-echarts';
 
 @NgModule({
   declarations: [
-      TCoursesComponent,
-      TMainComponent,
-      TCourseComponent,
-      TMindmapComponent,
-      THomeworkComponent,
-      TResourceComponent,
-      TCoursewareComponent,
+    TCoursesComponent,
+    TMainComponent,
+    TCourseComponent,
+    TMindmapComponent,
+    THomeworkComponent,
+    TResourceComponent,
+    TCoursewareComponent,
   ],
   imports: [
     CommonModule,

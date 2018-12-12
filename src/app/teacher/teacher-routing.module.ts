@@ -3,14 +3,14 @@ import { Routes, RouterModule } from '@angular/router';
 import { TCoursesComponent } from './t-courses/t-courses.component';
 import { TCourseComponent } from './t-course/t-course.component';
 import { TMainComponent } from './t-main/t-main.component';
-import { AuthGuard } from '../auth/auth.guard';
+import { AuthTeacherGuard } from './auth-teacher.guard';
 
 const teacherRoutes: Routes = [
   {
     path: 't',
     component: TMainComponent,
-    canActivate: [AuthGuard],
-    canActivateChild: [AuthGuard],
+    canActivate: [AuthTeacherGuard],
+    canActivateChild: [AuthTeacherGuard],
     children: [
       {path: '', redirectTo: 'courses', pathMatch: 'full'},
       {path: 'courses', component: TCoursesComponent},
