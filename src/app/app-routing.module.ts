@@ -11,7 +11,10 @@ const appRoutes: Routes = [
   imports: [
     RouterModule.forRoot(
       appRoutes,
-      { 'useHash': true, enableTracing: true } // <-- debugging purposes only
+      {
+        'useHash': true,
+        // enableTracing: true
+      } // enableTracing: debugging purposes only
     )
   ],
   exports: [

@@ -4,14 +4,14 @@
     <nz-form-item>
       <nz-form-label [nzSpan]="5">用户名</nz-form-label>
       <nz-form-control [nzSpan]="12">
-        <input nz-input type="text" [(ngModel)]="user.user_name" name="userName">
+        <input nz-input type="text" maxlength="12" [(ngModel)]="user.user_name" name="userName" [placeholder]="'长度在1-12之间'">
       </nz-form-control>
     </nz-form-item>
 
     <nz-form-item>
       <nz-form-label [nzSpan]="5">密码</nz-form-label>
       <nz-form-control [nzSpan]="12">
-        <input nz-input type="password" [(ngModel)]="user.user_pwd" name="userPwd">
+        <input nz-input type="password" maxlength="12" [(ngModel)]="user.user_pwd" name="userPwd" [placeholder]="'长度在1-12之间'">
       </nz-form-control>
     </nz-form-item>
 

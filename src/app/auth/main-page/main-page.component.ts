@@ -41,6 +41,7 @@ export class MainPageComponent implements OnInit {
           }
         }
       ],
+      nzMaskClosable: false
     });
   }
 
@@ -48,7 +49,8 @@ export class MainPageComponent implements OnInit {
     const modal = this.modalService.create({
       nzTitle: '注册',
       nzContent: RegisterComponent,
-      nzFooter: null
+      nzFooter: null,
+      nzMaskClosable: false
     });
   }
 
