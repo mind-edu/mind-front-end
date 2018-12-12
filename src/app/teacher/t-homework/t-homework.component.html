@@ -62,11 +62,16 @@
     <!--简答题列表-->
     <ol>
       <li *ngFor="let short of shortQuestions" class="short">
-        <div class="title item"><b>{{short.title}}</b></div>
+        <div class="title item"><b>{{short['title']}}</b></div>
         <div class="correct_answer item">
           <span><b>正确答案：</b></span>
-          <span>{{short.correct_answer}}</span>
+          <span>{{short['correct_answer']}}</span>
         </div>
+
+        <p><b>学生回答：</b></p>
+        <nz-list [nzDataSource]="short['studentAnswers']" nzSize="small" [nzRenderItem]="item">
+          <ng-template #item let-item><nz-list-item [nzContent]="item['answer']"></nz-list-item></ng-template>
+        </nz-list>
 
         <nz-divider></nz-divider>
 
@@ -158,6 +163,13 @@
       </nz-form-control>
     </nz-form-item>
 
+    <nz-form-item>
+      <nz-form-label [nzSpan]="5">分值(1-10)</nz-form-label>
+      <nz-form-control [nzSpan]="12">
+        <nz-input-number [(ngModel)]="multiple.value" [nzMin]="1" [nzMax]="10" [nzStep]="1" name="mScore"></nz-input-number>
+      </nz-form-control>
+    </nz-form-item>
+
   </form>
 
 </ng-template>
@@ -218,7 +230,7 @@
     <nz-form-item>
       <nz-form-label [nzSpan]="5">问题标题</nz-form-label>
       <nz-form-control [nzSpan]="12">
-        <textarea nz-input [(ngModel)]="judge.title" name="jtitle"></textarea>
+        <textarea nz-input [(ngModel)]="judge.title" name="jTitle"></textarea>
       </nz-form-control>
     </nz-form-item>
 
@@ -229,6 +241,13 @@
           <label nz-radio nzValue="T">正确</label>
           <label nz-radio nzValue="F">错误</label>
         </nz-radio-group>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSpan]="5">分值(1-10)</nz-form-label>
+      <nz-form-control [nzSpan]="12">
+        <nz-input-number [(ngModel)]="judge.value" [nzMin]="1" [nzMax]="10" [nzStep]="1" name="jScore"></nz-input-number>
       </nz-form-control>
     </nz-form-item>
   </form>

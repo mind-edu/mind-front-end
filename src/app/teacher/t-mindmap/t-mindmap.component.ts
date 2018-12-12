@@ -266,10 +266,13 @@ export class TMindmapComponent implements OnInit {
         // todo 遍历每个节点改变颜色
         for (const a of r) {
 
-          const color = this.accuracy2ColorHex(Number.parseFloat(a['accuracy']));
-          console.log(a['node_topic'] + '->' + a['accuracy'] + '->' + color);
+          if (a['score'] === 0) {
+            this.mindMap.set_node_color(a['node_id'], '#F5F5DC', '#000');
+          } else {
+            const color = this.accuracy2ColorHex(Number.parseFloat(a['value']));
+            this.mindMap.set_node_color(a['node_id'], color, '#fff');
+          }
 
-          this.mindMap.set_node_color(a['node_id'], color, '#fff');
         }
 
         this.mindMap.disable_edit();

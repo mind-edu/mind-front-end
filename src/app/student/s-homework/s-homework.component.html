@@ -51,22 +51,12 @@
     <!--简答题列表-->
     <ol>
       <li *ngFor="let stuShort of stuShorts">
-        <form nz-form>
-          <nz-form-item>
-            <nz-form-label [nzSpan]="5">问题标题</nz-form-label>
-            <nz-form-control [nzSpan]="12">
-              <input nz-input type="text" [(ngModel)]="stuShort.title" name="stitle">
-            </nz-form-control>
-          </nz-form-item>
-          <nz-form-item>
-            <nz-form-label [nzSpan]="5">输入回答</nz-form-label>
-            <nz-form-control [nzSpan]="12">
-              <textarea rows="4" nz-input name="stuAnswer"></textarea>
-            </nz-form-control>
-          </nz-form-item>
-          <nz-form-item>
-            <button style="float: right;" nz-button (click)="submitShort(stuShort)">提交回答</button>
-          </nz-form-item>
+        <form>
+          <div class="title item"><b>{{stuShort.title}}</b></div>
+
+          <textarea rows="4" style="max-width: 500px" nz-input name="stuAnswer" [(ngModel)]="stuShort.answer"></textarea>
+
+          <button style="margin-left: 20px;" nz-button (click)="submitShort(stuShort)">提交回答</button>
 
         </form>
       </li>

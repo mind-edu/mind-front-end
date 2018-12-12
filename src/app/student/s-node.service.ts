@@ -3,9 +3,10 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
-import { ShortQuestion } from '../short-question';
-import { StuMultiple } from '../stu-multiple';
-import { StuJudge } from '../stu-judge';
+import { ShortQuestion } from '../teacher/short-question';
+import { StuMultiple } from './stu-multiple';
+import { StuJudge } from './stu-judge';
+import { StuShort } from './stu-short';
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -47,6 +48,12 @@ export class SNodeService {
   answerMultiple(course_id: string, mindmap_id: string, node_id: string, user_name: string, stuMultiple: StuMultiple): Observable<boolean> {
     this.tempUrl = this.baseUrl + 'answer_multiple/' + course_id + '/' + mindmap_id + '/' + node_id + '/' + user_name;
     return this.http.post<boolean>(this.tempUrl, stuMultiple, httpOptions);
+  }
+
+  // 学生回答判断题
+  answerShort(course_id: string, mindmap_id: string, node_id: string, user_name: string, stuShort: StuShort): Observable<boolean> {
+    this.tempUrl = this.baseUrl + 'answer_short/' + course_id + '/' + mindmap_id + '/' + node_id + '/' + user_name;
+    return this.http.post<boolean>(this.tempUrl, stuShort, httpOptions);
   }
 
   // 学生回答判断题

@@ -45,7 +45,7 @@ export class TMindmapService {
   }
 
   getAccuracy(course_id: string, mind_id: string): Observable<any[]> {
-    this.tempUrl = this.baseUrl + 'nodes_accuracy/' + mind_id;
+    this.tempUrl = this.baseUrl + 'nodes_value/' + mind_id;
     return this.http.get<any>(this.tempUrl);
   }
 

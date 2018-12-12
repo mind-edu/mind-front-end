@@ -4,7 +4,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import {Observable} from 'rxjs';
 import {MultipleQuestion} from './multiple-question';
-import {ShortQuestion} from '../short-question';
+import {ShortQuestion} from './short-question';
 import {Link} from '../link';
 import {JudgeQuestion} from './judge-question';
 
@@ -32,7 +32,7 @@ export class TNodeService {
   }
 
   // 教师&学生获取简答题列表
-  getShort(course_id: string, mindmap_id: string, node_id: string): Observable<ShortQuestion[]> {
+  getShort(course_id: string, mindmap_id: string, node_id: string): Observable<any[]> {
     this.tempUrl = this.baseUrl + 'shorts/' + course_id + '/' + mindmap_id + '/' + node_id;
     return this.http.get<ShortQuestion[]>(this.tempUrl);
   }

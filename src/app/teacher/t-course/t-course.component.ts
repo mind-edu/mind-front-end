@@ -207,7 +207,7 @@ export class TCourseComponent implements OnInit {
   }
 
   clickSwitch() {
-    if (!this.currentMindmap) {
+    if (!this.currentMindmap || this.selectedIndex !== 0) {
       return;
     }
 

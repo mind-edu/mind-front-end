@@ -2,7 +2,7 @@ import {Component, Input, OnChanges, OnInit, TemplateRef} from '@angular/core';
 
 import {TNodeService} from '../t-node.service';
 import {MultipleQuestion} from '../multiple-question';
-import {ShortQuestion} from '../../short-question';
+import {ShortQuestion} from '../short-question';
 import {NzModalRef, NzModalService} from 'ng-zorro-antd';
 import {JudgeQuestion} from '../judge-question';
 
@@ -15,7 +15,7 @@ export class THomeworkComponent implements OnInit, OnChanges {
 
 
   multipleQuestions: MultipleQuestion[]; // 选择题列表
-  shortQuestions: ShortQuestion[]; // 简答题列表
+  shortQuestions: any[]; // 简答题列表
   judgeQuestions: JudgeQuestion[];
 
   // 添加选择题与简答题用

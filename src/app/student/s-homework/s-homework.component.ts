@@ -1,10 +1,10 @@
 import {Component, Input, OnChanges, OnInit} from '@angular/core';
 
-import { ShortQuestion } from '../../short-question';
-import { StuMultiple } from '../../stu-multiple';
 import { SNodeService } from '../s-node.service';
 import { NzModalService } from 'ng-zorro-antd';
-import { StuJudge } from '../../stu-judge';
+import { StuMultiple } from '../stu-multiple';
+import { StuJudge } from '../stu-judge';
+import { StuShort } from '../stu-short';
 
 @Component({
   selector: 'app-s-homework',
@@ -14,7 +14,7 @@ import { StuJudge } from '../../stu-judge';
 export class SHomeworkComponent implements OnInit, OnChanges {
 
   stuMultiples: StuMultiple[];
-  stuShorts: ShortQuestion[];
+  stuShorts: StuShort[];
   stuJudges: StuJudge[];
 
   @Input() course_id: string; // 与上层组件中course绑定
@@ -80,15 +80,15 @@ export class SHomeworkComponent implements OnInit, OnChanges {
   }
 
   // 提交简答题
-  submitShort(stuShort: ShortQuestion) {
-    const inModal = this.modalService.success(
-      {
-        nzTitle: '提交成功',
-        nzContent: '已保存简答题答案'
-      });
-    window.setTimeout(() => {
-      inModal.destroy();
-    }, 2000);
+  submitShort(stuShort: StuShort) {
+    this.nodeService.answerShort(
+      this.course_id,
+      this.mind_id,
+      this.node_id,
+      window.sessionStorage.getItem('user_name'),
+      stuShort).subscribe(
+        value => this.checkSubmit(value['success'])
+    );
   }
 
   // 提交判断题

@@ -20,12 +20,26 @@ li.color-item {
     border-radius: 5px;
 }
 
+#empty {
+    display: inline-block;
+    background: #F5F5DC;
+    height: 30px;
+    width: 60px;
+    vertical-align: middle;
+    border: 1px solid lightgray;
+    border-radius: 3px;
+    margin-right: 5px;
+}
+
 #colorDiv {
     display: inline-block;
     background: linear-gradient(to right, #f00, #ffff00 , #0f0);
     height: 30px;
     width: 120px;
     vertical-align: middle;
+    border: 1px solid lightgray;
+    border-radius: 3px;
+    margin-right: 5px;
 }
 
 #colorExplanation {
