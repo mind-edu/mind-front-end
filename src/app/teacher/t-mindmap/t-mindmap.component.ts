@@ -302,7 +302,7 @@ export class TMindmapComponent implements OnInit {
     this.mindmapService.getAccuracy(this.course_id, this.mindmap_id).subscribe(r => {
 
       const topicList = r.map(a => a['node_topic']);
-      const accuracyList = r.map(a => Number.parseFloat(a['accuracy']));
+      const accuracyList = r.map(a => Number.parseFloat(a['value']));
       this.chartOption = {
         title: {
           text: '知识点答题准确率'

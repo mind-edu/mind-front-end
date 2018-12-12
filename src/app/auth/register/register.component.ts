@@ -123,7 +123,6 @@ export class RegisterComponent implements OnInit {
 
   // 提交验证码
   onSubmit() {
-    console.log('提交了');
     this.userService.register(this.user)
         .subscribe(value => {
           console.log('result->' + value);
