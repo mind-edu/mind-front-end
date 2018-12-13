@@ -102,7 +102,7 @@ export class TCoursesComponent implements OnInit {
   deleteCourse() {
     this.courseService.deleteCourse(
       window.sessionStorage.getItem('user_name'),
-      this.courseToDelete.course_id
+      this.courseToDelete
     ).subscribe(value => this.checkDeleteSuccess(value['success']));
   }
 
