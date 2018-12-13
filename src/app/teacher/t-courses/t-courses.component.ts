@@ -16,7 +16,8 @@ export class TCoursesComponent implements OnInit {
     // {'course_id': 'ics', 'course_name': '深入理解计算机系统', 'course_number': '1'},
     // {'course_id': 'os', 'course_name': '操作系统', 'course_number': '1'},
   ];
-  course: Course = new Course();
+  courseToAdd: Course = new Course();
+  courseToDelete: Course = new Course();
 
   tplModal: NzModalRef; // 用于开设新课程
 
@@ -61,18 +62,20 @@ export class TCoursesComponent implements OnInit {
   }
 
   // 教师添加课程
-  onSubmit() {
-    this.courseService.addCourse(this.course, window.sessionStorage.getItem('user_name'))
-      .subscribe((value => this.checkSuccess(value['success'])));
+  addCourse() {
+    this.courseService.addCourse(
+      this.courseToAdd,
+      window.sessionStorage.getItem('user_name'))
+      .subscribe((value => this.checkAddSuccess(value['success'])));
   }
 
   // 检查是否添加成功
-  checkSuccess(value) {
+  checkAddSuccess(value) {
     if (value) {
       // 更新课程列表
       this.getCourses();
       // 清空新增课程信息
-      this.course = new Course();
+      this.courseToAdd = new Course();
 
       const inModal = this.modalService.success(
         {
@@ -96,4 +99,40 @@ export class TCoursesComponent implements OnInit {
     }
   }
 
+  deleteCourse() {
+    this.courseService.deleteCourse(
+      window.sessionStorage.getItem('user_name'),
+      this.courseToDelete.course_id
+    ).subscribe(value => this.checkDeleteSuccess(value['success']));
+  }
+
+  // 检查是否删除成功
+  checkDeleteSuccess(value) {
+    if (value) {
+      // 更新课程列表
+      this.getCourses();
+      // 清空新增课程信息
+      this.courseToDelete = new Course();
+
+      const inModal = this.modalService.success(
+        {
+          nzTitle: '操作成功',
+          nzContent: '课程已删除'
+        });
+      window.setTimeout(() => {
+        inModal.destroy();
+        this.tplModal.destroy();
+      }, 2000);
+
+    } else {
+      const inModal = this.modalService.error(
+        {
+          nzTitle: '操作失败',
+          nzContent: '课程信息不正确'
+        });
+      window.setTimeout(() => {
+        inModal.destroy();
+      }, 2000);
+    }
+  }
 }

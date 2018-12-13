@@ -16,30 +16,33 @@ const options = {
 })
 export class SMindmapComponent implements OnInit {
 
-  course_id: string;
+  course_id: string; // 课程id
   @Input()
   set courseId(course_id: string) {
     this.course_id = course_id;
   }
 
-  mindmap_id: string;
+  mindmap_id: string; // 思维导图id
   @Input()
   set mindmapId(mindmap_id: string) {
     this.mindmap_id = mindmap_id;
-    // console.log(mindmap_id);
 
     if (this.mindmap_id) {
       this.updateMindmapView();
+      this.updateMindmapNodeCount();
     }
   }
 
-  mindStr: any;
+  mindJson: any; // 思维导图Json数据
 
   public mindMap; // 思维导图组件
 
   selected_node_id: string; // 当前思维导图中被选中的节点
   @Output() selectNodeEvent = new EventEmitter<string>();
   selected_node;
+
+  modeValue = 'homework';
+  mindmap_node_count: any; // 思维导图资源数量，包括作业、课件、资源
 
   constructor(
     private mindmapService: SMindmapService
@@ -52,15 +55,15 @@ export class SMindmapComponent implements OnInit {
   // 显示新的mindMap
   updateMindmapView() {
 
-    this.mindmapService.getMindmap(this.course_id, this.mindmap_id).subscribe(mindStr => {
+    this.mindmapService.getMindmap(this.course_id, this.mindmap_id).subscribe(mindJson => {
 
-      this.mindStr = mindStr;
+      this.mindJson = mindJson;
 
       if (!this.mindMap) {
-        this.mindMap = jsMind.show(options, this.mindStr);
+        this.mindMap = jsMind.show(options, this.mindJson);
         this.mindMap.disable_edit();
       } else {
-        this.mindMap.show(this.mindStr);
+        this.mindMap.show(this.mindJson);
       }
 
     });
@@ -85,6 +88,28 @@ export class SMindmapComponent implements OnInit {
 
   screen_shot() {
     this.mindMap.screenshot.shootDownload();
+  }
+
+  updateMindmapNodeCount() {
+    this.mindmapService.getMindmapNodeCount(this.mindmap_id).subscribe(
+      r => {
+        this.mindmap_node_count = r;
+        this.switchMode();
+      }
+    );
+  }
+
+  switchMode() {
+
+    window.setTimeout(() => {
+
+      this.mindMap.enable_edit();
+      for (const c of this.mindmap_node_count) {
+        // console.log(c);
+        this.mindMap.update_node(c['nodeId'], c['nodeTopic'] + '(' + c[`${this.modeValue}Num`] + ')');
+      }
+      this.mindMap.disable_edit();
+    }, 100);
   }
 
 }

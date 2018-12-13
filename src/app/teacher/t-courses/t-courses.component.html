@@ -4,6 +4,11 @@
           (click)="openModal(newCourseTitle, newCourseContent, newCourseFooter)">
     添加课程
   </button>
+
+  <button nz-button type="button" style="margin-left: 20px;"
+          (click)="openModal(deleteCourseTitle, deleteCourseContent, deleteCourseFooter)">
+    删除课程
+  </button>
 </div>
 
 <div id="courses">
@@ -30,13 +35,13 @@
     <nz-form-item>
       <nz-form-label [nzSpan]="5">课程ID</nz-form-label>
       <nz-form-control [nzSpan]="12">
-        <input nz-input type="text" [(ngModel)]="course.course_id" name="course_id">
+        <input nz-input type="text" [(ngModel)]="courseToAdd.course_id" name="course_id">
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>
       <nz-form-label [nzSpan]="5">课程名称</nz-form-label>
       <nz-form-control [nzSpan]="12">
-        <input nz-input type="text" [(ngModel)]="course.course_name" name="course_name">
+        <input nz-input type="text" [(ngModel)]="courseToAdd.course_name" name="course_name">
       </nz-form-control>
     </nz-form-item>
 
@@ -45,9 +50,41 @@
 </ng-template>
 <ng-template #newCourseFooter>
   <button nz-button nzType="primary"
-          (click)="onSubmit()"
-          [disabled]="course.course_name=='' || course.course_id==''">
+          (click)="addCourse()"
+          [disabled]="courseToAdd.course_name=='' || courseToAdd.course_id==''">
     提交
   </button>
 </ng-template>
+
+<!-- 模板 删除课程 -->
+<ng-template #deleteCourseTitle>
+  <span>请输入课程信息以确认删除</span>
+</ng-template>
+<ng-template #deleteCourseContent>
+
+  <form nz-form>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="5">课程ID</nz-form-label>
+      <nz-form-control [nzSpan]="12">
+        <input nz-input type="text" [(ngModel)]="courseToDelete.course_id" name="course_id">
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="5">课程名称</nz-form-label>
+      <nz-form-control [nzSpan]="12">
+        <input nz-input type="text" [(ngModel)]="courseToDelete.course_name" name="course_name">
+      </nz-form-control>
+    </nz-form-item>
+
+  </form>
+
+</ng-template>
+<ng-template #deleteCourseFooter>
+  <button nz-button nzType="primary"
+          (click)="deleteCourse()"
+          [disabled]="courseToDelete.course_name=='' || courseToDelete.course_id==''">
+    提交
+  </button>
+</ng-template>
+
 

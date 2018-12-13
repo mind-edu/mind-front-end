@@ -41,4 +41,9 @@ export class TCourseService {
     const tempUrl = this.baseUrl + 'course_students/' + course_id;
     return this.http.get<any[]>(tempUrl);
   }
+
+  deleteCourse(user_name: string, course_id): Observable<boolean> {
+    const tempUrl = this.baseUrl + 'delete_course_teacher/' + user_name + '/' + course_id;
+    return this.http.delete<boolean>(tempUrl);
+  }
 }
