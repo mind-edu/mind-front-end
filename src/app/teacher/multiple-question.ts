@@ -20,6 +20,6 @@ export class MultipleQuestion {
     this.correct_number = '';
     this.number = '';
 
-    this.value = 0;
+    this.value = 1;
   }
 }

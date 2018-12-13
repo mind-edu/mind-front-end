@@ -12,10 +12,7 @@ import {NzModalRef, NzModalService} from 'ng-zorro-antd';
 })
 export class TCoursesComponent implements OnInit {
 
-  courses: Course[] = [
-    // {'course_id': 'ics', 'course_name': '深入理解计算机系统', 'course_number': '1'},
-    // {'course_id': 'os', 'course_name': '操作系统', 'course_number': '1'},
-  ];
+  courses: Course[] = [];
   courseToAdd: Course = new Course();
   courseToDelete: Course = new Course();
 
