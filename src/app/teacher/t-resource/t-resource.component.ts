@@ -18,6 +18,8 @@ export class TResourceComponent implements OnInit, OnChanges {
   @Input() mind_id: string; // 与上层组件中选中的mindMap绑定
   @Input() node_id: string;
 
+  resourceList = [];
+
   material_names: string[] = [];
   links: Link[];
   link: Link = new Link();
@@ -54,6 +56,8 @@ export class TResourceComponent implements OnInit, OnChanges {
 
     this.updateMaterials();
     this.updateLinks();
+
+    this.resourceList = [];
   }
 
   updateMaterials() {

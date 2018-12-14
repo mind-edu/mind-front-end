@@ -16,6 +16,8 @@ export class TCoursewareComponent implements OnInit, OnChanges {
   @Input() mind_id: string; // 与上层组件中选中的mindMap绑定
   @Input() node_id: string; // 当前选中的节点
 
+  coursewareList = [];
+
   courseware_names: string[] = []; // 记录从服务器获取的的课件资源
   pdf_names: string[];
   mp4_names: string[];
@@ -54,6 +56,7 @@ export class TCoursewareComponent implements OnInit, OnChanges {
       + this.course_id + '/' + this.mind_id + '/' + this.node_id + '/';
 
     this.updateCoursewares();
+    this.coursewareList = [];
   }
 
   // 从服务器更新课件列表
