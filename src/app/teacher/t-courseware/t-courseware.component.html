@@ -30,12 +30,15 @@
     <nz-list [nzDataSource]="pdf_names"
              [nzRenderItem]="pdf_item">
       <ng-template #pdf_item let-pdf_item>
-        <nz-list-item [nzContent]="pdf_item" [nzActions]="[previewAction, downloadAction]">
+        <nz-list-item [nzContent]="pdf_item" [nzActions]="[previewAction, downloadAction, removeAction]">
           <ng-template #previewAction>
-            <a (click)="loadPdf(pdf_item)">预览</a>
+            <a (click)="loadPdf(pdf_item)">观看</a>
           </ng-template>
           <ng-template #downloadAction>
             <a (click)="download(pdf_item)">下载</a>
+          </ng-template>
+          <ng-template #removeAction>
+            <a (click)="removeCourseware(pdf_item)">移除</a>
           </ng-template>
         </nz-list-item>
       </ng-template>
@@ -51,12 +54,15 @@
     <nz-list [nzDataSource]="mp4_names"
              [nzRenderItem]="mp4_item">
       <ng-template #mp4_item let-mp4_item>
-        <nz-list-item [nzContent]="mp4_item" [nzActions]="[previewAction, downloadAction]">
+        <nz-list-item [nzContent]="mp4_item" [nzActions]="[previewAction, downloadAction, removeAction]">
           <ng-template #previewAction>
-            <a (click)="loadMp4(mp4_item)">预览</a>
+            <a (click)="loadMp4(mp4_item)">观看</a>
           </ng-template>
           <ng-template #downloadAction>
             <a (click)="download(mp4_item)">下载</a>
+          </ng-template>
+          <ng-template #removeAction>
+            <a (click)="removeCourseware(mp4_item)">移除</a>
           </ng-template>
         </nz-list-item>
       </ng-template>
@@ -74,7 +80,7 @@
     [nzMin]="1" [nzMax]="totalPages"
     [nzStep]="1"
     style="margin-top: 15px">
-  </nz-input-number> <button nz-button (click)="pdf_url=''" style="margin-left: 10px;"> 取消预览 </button>
+  </nz-input-number> <button nz-button (click)="pdf_url=''" style="margin-left: 10px;"> 结束观看 </button>
 
   <pdf-viewer
     [src]="pdf_url"
@@ -89,7 +95,7 @@
 
 <div *ngIf="mp4_url!=''" style="margin-top: 15px; padding: 10px;">
 
-  <button nz-button (click)="mp4_url=''" style="margin-left: 10px;"> 取消预览 </button>
+  <button nz-button (click)="mp4_url=''" style="margin-left: 10px;"> 结束观看 </button>
 
   <div style="margin-top: 15px;">
     <video [src]="mp4_url" controls="controls" width="100%"></video>

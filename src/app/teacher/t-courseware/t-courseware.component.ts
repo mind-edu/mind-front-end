@@ -109,5 +109,22 @@ export class TCoursewareComponent implements OnInit, OnChanges {
     this.totalPages = pdfData.numPages;
   }
 
+  removeCourseware(courseware_name: string) {
+    this.nodeService.removeCourseware(this.course_id, this.mind_id, this.node_id, courseware_name).subscribe(
+      r => {
+        if (r['success']) {
+          this.msg.success(`课件 ${courseware_name} 移除成功`);
+          // 将观看面板暂时收起来
+          this.mp4_url = '';
+          this.pdf_url = '';
+        } else {
+          this.msg.error(`课件 ${courseware_name} 移除失败`);
+        }
+
+        this.updateCoursewares();
+      }
+    );
+  }
+
 
 }

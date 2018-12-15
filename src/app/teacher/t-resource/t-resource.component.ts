@@ -124,4 +124,32 @@ export class TResourceComponent implements OnInit, OnChanges {
     }
   }
 
+  removeMaterial(material_name) {
+    this.nodeService.removeMaterial(this.course_id, this.mind_id, this.node_id, material_name).subscribe(
+      r => {
+        if (r['success']) {
+          this.msg.success(`资源 ${material_name} 移除成功`);
+        } else {
+          this.msg.error(`资源 ${material_name} 移除失败`);
+        }
+
+        this.updateMaterials();
+      }
+    );
+  }
+
+  removeLink(link_name: string, nodeId: string) {
+    this.nodeService.removeLink(link_name, nodeId).subscribe(
+      r => {
+        if (r['success']) {
+          this.msg.success(`资源 ${link_name} 移除成功`);
+        } else {
+          this.msg.error(`资源 ${link_name} 移除失败`);
+        }
+
+        this.updateLinks();
+      }
+    );
+  }
+
 }

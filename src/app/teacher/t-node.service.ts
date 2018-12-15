@@ -112,4 +112,18 @@ export class TNodeService {
     URL.revokeObjectURL(objectUrl);
   }
 
+  removeCourseware(course_id: string, mind_id: string, node_id: string, courseware_name: string) {
+    this.tempUrl = this.baseUrl + 'delete_courseware/' + course_id + '/' + mind_id + '/' + node_id + '/' + courseware_name;
+    return this.http.delete<any>(this.tempUrl, httpOptions);
+  }
+
+  removeMaterial(course_id: string, mind_id: string, node_id: string, material_name: string) {
+    this.tempUrl = this.baseUrl + 'delete_material/' + course_id + '/' + mind_id + '/' + node_id + '/' + material_name;
+    return this.http.delete<any>(this.tempUrl, httpOptions);
+  }
+
+  removeLink(link_name: string, nodeId: string) {
+    this.tempUrl = this.baseUrl + 'delete_link/' + link_name + '/' + nodeId;
+    return this.http.delete<any>(this.tempUrl, httpOptions);
+  }
 }
