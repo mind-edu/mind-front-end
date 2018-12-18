@@ -41,7 +41,8 @@ export class UserService {
   }
 
   register(user: RegisterUser): Observable<boolean> {
-    return this.http.post<boolean>(this.registerUrl, user, httpOptions);
+    // return this.http.post<boolean>(this.registerUrl, user, httpOptions);
+    return this.http.post<boolean>(environment.apiUrl + 'register', user, httpOptions);
   }
 
   modifyPassword(user: User): Observable<boolean> {
