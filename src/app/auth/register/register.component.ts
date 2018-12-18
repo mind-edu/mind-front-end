@@ -31,37 +31,37 @@ export class RegisterComponent implements OnInit {
   }
 
   // 切换到注册码状态
-  gotoNext() {
-    this.checkInputStatus();
-
-    if (!this.inputStatus[0]) {
-      const inModal = this.modalService.warning(
-          {
-            nzTitle: '请先填写注册信息',
-            nzContent: '用户名或密码为空'
-          });
-
-      window.setTimeout(() => inModal.destroy(), 2000);
-      return;
-    }
-
-    if (!this.inputStatus[1]) {
-      const inModal = this.modalService.warning(
-          {
-            nzTitle: '请检查输入',
-            nzContent: '两次密码不一致'
-          });
-
-      window.setTimeout(() => inModal.destroy(), 2000);
-      return;
-    }
-
-    this.next = true;
-  }
-
-  goBack() {
-    this.next = false;
-  }
+  // gotoNext() {
+  //   this.checkInputStatus();
+  //
+  //   if (!this.inputStatus[0]) {
+  //     const inModal = this.modalService.warning(
+  //         {
+  //           nzTitle: '请先填写注册信息',
+  //           nzContent: '用户名或密码为空'
+  //         });
+  //
+  //     window.setTimeout(() => inModal.destroy(), 2000);
+  //     return;
+  //   }
+  //
+  //   if (!this.inputStatus[1]) {
+  //     const inModal = this.modalService.warning(
+  //         {
+  //           nzTitle: '请检查输入',
+  //           nzContent: '两次密码不一致'
+  //         });
+  //
+  //     window.setTimeout(() => inModal.destroy(), 2000);
+  //     return;
+  //   }
+  //
+  //   this.next = true;
+  // }
+  //
+  // goBack() {
+  //   this.next = false;
+  // }
 
   // 检查注册信息的填写
   checkInputStatus(): void {
@@ -80,22 +80,22 @@ export class RegisterComponent implements OnInit {
   }
 
   // 发送注册码
-  sendCode() {
-    if (this.user.email === '') {
-      const inModal = this.modalService.warning(
-          {
-            nzTitle: '请先填写注册邮箱',
-            nzContent: '注册邮箱为空'
-          });
-
-      window.setTimeout(() => inModal.destroy(), 2000);
-      return;
-    }
-
-    this.isChecking = true;
-    this.userService.sendCode(this.user)
-        .subscribe((value => this.checkCodeStatus(value['success'])));
-  }
+  // sendCode() {
+  //   if (this.user.email === '') {
+  //     const inModal = this.modalService.warning(
+  //         {
+  //           nzTitle: '请先填写注册邮箱',
+  //           nzContent: '注册邮箱为空'
+  //         });
+  //
+  //     window.setTimeout(() => inModal.destroy(), 2000);
+  //     return;
+  //   }
+  //
+  //   this.isChecking = true;
+  //   this.userService.sendCode(this.user)
+  //       .subscribe((value => this.checkCodeStatus(value['success'])));
+  // }
 
 
   // 返回验证码发送状态
@@ -122,40 +122,39 @@ export class RegisterComponent implements OnInit {
   }
 
   // 提交验证码
-  onSubmit() {
-    this.userService.register(this.user)
-        .subscribe(value => {
-          console.log('result->' + value);
-          if (value['success']) {
-            this.storeUserInfo(); // 存储用户信息
-
-            const inModal = this.modalService.success(
-                {
-                  nzTitle: '注册成功',
-                  nzContent: '两秒钟后会自动跳转'
-                });
-
-            window.setTimeout(() => {
-              inModal.destroy();
-              this.destroyModal();
-
-              if (this.user.identity === 'teacher') {
-                this.router.navigate(['t']);
-              } else if (this.user.identity === 'student') {
-                this.router.navigate(['s']);
-              }
-            }, 2000);
-          } else {
-            const inModal = this.modalService.error(
-                {
-                  nzTitle: '注册失败',
-                  nzContent: '注册信息有误'
-                });
-            window.setTimeout(() => inModal.destroy(), 2000);
-          }
-
-        });
-  }
+  // onSubmit() {
+  //   this.userService.register(this.user)
+  //       .subscribe(value => {
+  //         if (value['success']) {
+  //           this.storeUserInfo(); // 存储用户信息
+  //
+  //           const inModal = this.modalService.success(
+  //               {
+  //                 nzTitle: '注册成功',
+  //                 nzContent: '两秒钟后会自动跳转'
+  //               });
+  //
+  //           window.setTimeout(() => {
+  //             inModal.destroy();
+  //             this.destroyModal();
+  //
+  //             if (this.user.identity === 'teacher') {
+  //               this.router.navigate(['t']);
+  //             } else if (this.user.identity === 'student') {
+  //               this.router.navigate(['s']);
+  //             }
+  //           }, 2000);
+  //         } else {
+  //           const inModal = this.modalService.error(
+  //               {
+  //                 nzTitle: '注册失败',
+  //                 nzContent: '注册信息有误'
+  //               });
+  //           window.setTimeout(() => inModal.destroy(), 2000);
+  //         }
+  //
+  //       });
+  // }
 
   // 在内存中存储登录状态
   storeUserInfo() {
@@ -169,5 +168,69 @@ export class RegisterComponent implements OnInit {
   destroyModal(): void {
     this.modal.destroy({ data: 'this the result data' });
   }
+
+  goBack() {
+    this.next = false;
+  }
+
+  registerRightNow() {
+    this.checkInputStatus();
+
+    if (!this.inputStatus[0]) {
+      const inModal = this.modalService.warning(
+        {
+          nzTitle: '请先填写注册信息',
+          nzContent: '用户名或密码为空'
+        });
+
+      window.setTimeout(() => inModal.destroy(), 2000);
+      return;
+    }
+
+    if (!this.inputStatus[1]) {
+      const inModal = this.modalService.warning(
+        {
+          nzTitle: '请检查输入',
+          nzContent: '两次密码不一致'
+        });
+
+      window.setTimeout(() => inModal.destroy(), 2000);
+      return;
+    }
+
+    this.userService.register(this.user)
+      .subscribe(value => {
+        if (value['success']) {
+          this.storeUserInfo(); // 存储用户信息
+
+          const inModal = this.modalService.success(
+            {
+              nzTitle: '注册成功',
+              nzContent: '两秒钟后会自动跳转'
+            });
+
+          window.setTimeout(() => {
+            inModal.destroy();
+            this.destroyModal();
+
+            if (this.user.identity === 'teacher') {
+              this.router.navigate(['t']);
+            } else if (this.user.identity === 'student') {
+              this.router.navigate(['s']);
+            }
+          }, 2000);
+        } else {
+          const inModal = this.modalService.error(
+            {
+              nzTitle: '注册失败',
+              nzContent: '注册信息有误'
+            });
+          window.setTimeout(() => inModal.destroy(), 2000);
+        }
+
+      });
+  }
+
+
 
 }
