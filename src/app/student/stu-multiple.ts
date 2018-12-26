@@ -6,6 +6,8 @@ export class StuMultiple {
   optionD: string;
   answer: string;
 
+  submitted: boolean;
+
   constructor() {
     this.title = '';
     this.optionA = '';
@@ -13,5 +15,7 @@ export class StuMultiple {
     this.optionC = '';
     this.optionD = '';
     this.answer = '';
+
+    this.submitted = false;
   }
 }

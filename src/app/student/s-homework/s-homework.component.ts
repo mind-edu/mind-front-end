@@ -38,34 +38,53 @@ export class SHomeworkComponent implements OnInit, OnChanges {
     this.nodeService.getStuMultiple(
       this.course_id,
       this.mind_id,
-      this.node_id).subscribe(
+      this.node_id,
+      window.sessionStorage.getItem('user_name')).subscribe(
       value => this.setMultiple(value));
 
     // 获取所有的简答题
     this.nodeService.getShort(
       this.course_id,
       this.mind_id,
-      this.node_id).subscribe(
+      this.node_id,
+      window.sessionStorage.getItem('user_name')).subscribe(
       value => this.setShort(value));
 
     // 获取所有的选择题
     this.nodeService.getStuJudge(
       this.course_id,
       this.mind_id,
-      this.node_id).subscribe(
+      this.node_id,
+      window.sessionStorage.getItem('user_name')).subscribe(
       value => this.setJudge(value));
   }
 
   setMultiple(value) {
     this.stuMultiples = value;
+    for (const stuMultiple of this.stuMultiples) {
+      if (stuMultiple.answer !== '') {
+
+        stuMultiple.submitted = true;
+      }
+    }
   }
 
   setShort(value) {
     this.stuShorts = value;
+    for (const stuShort of this.stuShorts) {
+      if (stuShort.answer !== '') {
+        stuShort.submitted = true;
+      }
+    }
   }
 
   setJudge(value) {
     this.stuJudges = value;
+    for (const stuJudge of this.stuJudges) {
+      if (stuJudge.answer !== '') {
+        stuJudge.submitted = true;
+      }
+    }
   }
 
   // 提交选择题
@@ -123,6 +142,25 @@ export class SHomeworkComponent implements OnInit, OnChanges {
         inModal.destroy();
       }, 2000);
     }
+  }
+
+  // 查看正确答案
+  checkAnswer(id: string, type: number) {
+    this.nodeService.get_real_answer(
+      id,
+      type,
+      window.sessionStorage.getItem('user_name')
+    ).subscribe(
+      // todo 显示答案
+      r => {
+        this.modalService.info(
+          {
+            nzTitle: '参考答案为：',
+            nzContent: r['answer']
+          }
+        );
+      }
+    );
   }
 
 }

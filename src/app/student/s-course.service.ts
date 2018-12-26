@@ -32,8 +32,8 @@ export class SCourseService {
     return this.http.get<Course[]>(this.tempUrl);
   }
 
-  stuAddCourse(user_name: string, course: Course): Observable<boolean> {
-    this.tempUrl = this.baseUrl + 'add_course_student/' + user_name;
+  stuAddCourse(user_name: string, course: Course, select_code: string): Observable<boolean> {
+    this.tempUrl = this.baseUrl + 'add_course_student/' + user_name + '/' + select_code;
     return this.http.post<boolean>(this.tempUrl, course , httpOptions);
   }
 }

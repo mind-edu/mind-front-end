@@ -31,7 +31,8 @@
             <label nz-radio nzValue="C">C</label>
             <label nz-radio nzValue="D">D</label>
           </nz-radio-group>
-          <button nz-button (click)="submitMultiple(stuMultiple)" [disabled]="!stuMultiple.answer || stuMultiple.answer==''">提交回答</button>
+          <button nz-button *ngIf="!stuMultiple.submitted" (click)="submitMultiple(stuMultiple)" [disabled]="!stuMultiple.answer || stuMultiple.answer==''">提交回答</button>
+          <button nz-button *ngIf="stuMultiple.submitted" (click)="checkAnswer(stuMultiple['assignmentLongId'], 1)">查看答案</button>
         </form>
 
         <!--分割线-->

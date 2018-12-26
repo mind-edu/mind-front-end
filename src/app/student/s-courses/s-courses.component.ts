@@ -53,11 +53,11 @@ export class SCoursesComponent implements OnInit {
     this.router.navigate(['../course', course_id], {relativeTo: this.route});
   }
 
-  // 提交选课
-  onSubmit(course: Course) {
-    this.courseService.stuAddCourse(window.sessionStorage.getItem('user_name'), course)
-      .subscribe((value => this.checkSuccess(value['success'])));
-  }
+  // // 提交选课
+  // onSubmit(course: Course) {
+  //   this.courseService.stuAddCourse(window.sessionStorage.getItem('user_name'), course)
+  //     .subscribe((value => this.checkSuccess(value['success'])));
+  // }
 
   // 检查选课结果
   checkSuccess(value) {
@@ -83,14 +83,5 @@ export class SCoursesComponent implements OnInit {
     }
   }
 
-  // alertSuccess(title: string, content: string) {
-  //   const inModal = this.modalService.success(
-  //     {
-  //       nzTitle: title,
-  //       nzContent: content
-  //     });
-  //   window.setTimeout(() => {
-  //     inModal.destroy();
-  //   }, 2000);
-  // }
+
 }

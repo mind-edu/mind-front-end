@@ -26,21 +26,21 @@ export class SNodeService {
     this.baseUrl = environment.apiUrl;
   }
 
-  // 教师&学生获取简答题列表
-  getShort(course_id: string, mindmap_id: string, node_id: string): Observable<ShortQuestion[]> {
-    this.tempUrl = this.baseUrl + 'shorts/' + course_id + '/' + mindmap_id + '/' + node_id;
+  // 学生获取简答题列表
+  getShort(course_id: string, mindmap_id: string, node_id: string, stu_name: string): Observable<ShortQuestion[]> {
+    this.tempUrl = this.baseUrl + 'shorts_student/' + course_id + '/' + mindmap_id + '/' + node_id + '/' + stu_name;
     return this.http.get<ShortQuestion[]>(this.tempUrl);
   }
 
   // 学生获取选择题列表
-  getStuMultiple(course_id: string, mindmap_id: string, node_id: string): Observable<StuMultiple[]> {
-    this.tempUrl = this.baseUrl + 'multiples_student/' + course_id + '/' + mindmap_id + '/' + node_id;
+  getStuMultiple(course_id: string, mindmap_id: string, node_id: string, stu_name: string): Observable<StuMultiple[]> {
+    this.tempUrl = this.baseUrl + 'multiples_student/' + course_id + '/' + mindmap_id + '/' + node_id + '/' + stu_name;
     return this.http.get<StuMultiple[]>(this.tempUrl);
   }
 
   // 学生获取判断题列表
-  getStuJudge(course_id: string, mindmap_id: string, node_id: string): Observable<StuJudge[]> {
-    this.tempUrl = this.baseUrl + 'judgments_student/' + course_id + '/' + mindmap_id + '/' + node_id;
+  getStuJudge(course_id: string, mindmap_id: string, node_id: string, stu_name: string): Observable<StuJudge[]> {
+    this.tempUrl = this.baseUrl + 'judgments_student/' + course_id + '/' + mindmap_id + '/' + node_id + '/' + stu_name;
     return this.http.get<StuJudge[]>(this.tempUrl);
   }
 
@@ -106,5 +106,10 @@ export class SNodeService {
     a.setAttribute('download', fileName);
     a.click();
     URL.revokeObjectURL(objectUrl);
+  }
+
+  get_real_answer(longId: string, type: number, user_name: string) {
+    this.tempUrl = this.baseUrl + 'student_real_answer/' + longId + '/' + type + '/' + user_name;
+    return this.http.get<string[]>(this.tempUrl);
   }
 }

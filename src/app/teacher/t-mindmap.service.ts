@@ -49,4 +49,9 @@ export class TMindmapService {
     return this.http.get<any>(this.tempUrl);
   }
 
+  deleteMindmap(mindmap_id: string) {
+    this.tempUrl = this.baseUrl + 'mindmap_delete/' + mindmap_id;
+    return this.http.delete<any>(this.tempUrl);
+  }
+
 }
