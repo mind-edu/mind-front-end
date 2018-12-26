@@ -95,7 +95,10 @@ export class SHomeworkComponent implements OnInit, OnChanges {
       this.node_id,
       window.sessionStorage.getItem('user_name'),
       stuMultiple).subscribe(
-      value => this.checkSubmit(value['success']));
+      value => {
+        this.checkSubmit(value['success']);
+        stuMultiple.submitted = true;
+      });
   }
 
   // 提交简答题
@@ -106,7 +109,10 @@ export class SHomeworkComponent implements OnInit, OnChanges {
       this.node_id,
       window.sessionStorage.getItem('user_name'),
       stuShort).subscribe(
-        value => this.checkSubmit(value['success'])
+        value => {
+          this.checkSubmit(value['success']);
+          stuShort.submitted = true;
+        }
     );
   }
 
@@ -118,7 +124,10 @@ export class SHomeworkComponent implements OnInit, OnChanges {
       this.node_id,
       window.sessionStorage.getItem('user_name'),
       stuJudge).subscribe(
-      value => this.checkSubmit(value['success']));
+      value => {
+        this.checkSubmit(value['success']);
+        stuJudge.submitted = true;
+      });
   }
 
   // 检查提交
@@ -156,7 +165,7 @@ export class SHomeworkComponent implements OnInit, OnChanges {
         this.modalService.info(
           {
             nzTitle: '参考答案为：',
-            nzContent: r['answer']
+            nzContent: type === 3 ? (r['answer'] === 'T' ? '正确' : '错误') : r['answer']
           }
         );
       }

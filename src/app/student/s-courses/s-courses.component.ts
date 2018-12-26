@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, TemplateRef} from '@angular/core';
 import {Course} from '../../course';
 import {ActivatedRoute, Router} from '@angular/router';
 import {SCourseService} from '../s-course.service';
-import {NzModalService} from 'ng-zorro-antd';
+import {NzModalRef, NzModalService} from 'ng-zorro-antd';
 
 @Component({
   selector: 'app-s-courses',
@@ -12,8 +12,14 @@ import {NzModalService} from 'ng-zorro-antd';
 export class SCoursesComponent implements OnInit {
 
   user_name: string;
-  courses: Course[];
-  allCourse: Course[];
+  courses: Course[]; // 学生已选课程
+  allCourse: Course[]; // 所有开课
+
+  intentionName = ''; // 输入的课程名
+  intentionCourse: Course; // 将要选的课
+
+  code = ''; // 选课码
+  tplModal: NzModalRef; // 用于输入选课码
 
   constructor(
     private route: ActivatedRoute,
@@ -53,11 +59,11 @@ export class SCoursesComponent implements OnInit {
     this.router.navigate(['../course', course_id], {relativeTo: this.route});
   }
 
-  // // 提交选课
-  // onSubmit(course: Course) {
-  //   this.courseService.stuAddCourse(window.sessionStorage.getItem('user_name'), course)
-  //     .subscribe((value => this.checkSuccess(value['success'])));
-  // }
+  // 提交选课
+  onSubmit() {
+    this.courseService.stuAddCourse(window.sessionStorage.getItem('user_name'), this.intentionCourse, this.code)
+      .subscribe((value => this.checkSuccess(value['success'])));
+  }
 
   // 检查选课结果
   checkSuccess(value) {
@@ -69,18 +75,39 @@ export class SCoursesComponent implements OnInit {
         });
       window.setTimeout(() => {
         inModal.destroy();
+        this.tplModal.destroy();
       }, 2000);
       this.getCourses();
     } else {
       const inModal = this.modalService.error(
         {
           nzTitle: '操作失败',
-          nzContent: '该课程已选择'
+          nzContent: '选课失败'
         });
       window.setTimeout(() => {
         inModal.destroy();
+        this.tplModal.destroy();
       }, 2000);
     }
+  }
+
+  search() {
+    this.intentionCourse = null;
+    for (const c of this.allCourse) {
+      if (c.course_name === this.intentionName) {
+        this.intentionCourse = c;
+        break;
+      }
+    }
+  }
+
+  inputCodeModal(tplTitle: TemplateRef<{}>, tplContent: TemplateRef<{}>, tplFooter: TemplateRef<{}>) {
+    this.tplModal = this.modalService.create({
+      nzTitle: tplTitle,
+      nzContent: tplContent,
+      nzFooter: tplFooter,
+      nzMaskClosable: false
+    });
   }
 
 

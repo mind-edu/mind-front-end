@@ -57,8 +57,13 @@
 
           <textarea rows="4" style="max-width: 500px" nz-input name="stuAnswer" [(ngModel)]="stuShort.answer"></textarea>
 
-          <button style="margin-left: 20px;" nz-button (click)="submitShort(stuShort)">提交回答</button>
-
+          <button style="margin-left: 20px;"
+                  nz-button *ngIf="!stuShort.submitted"
+                  [disabled]="!stuShort.answer || stuShort.answer==''"
+                  (click)="submitShort(stuShort)">提交回答</button>
+          <button style="margin-left: 20px;"
+                  nz-button *ngIf="stuShort.submitted"
+                  (click)="checkAnswer(stuShort['assignmentLongId'], 2)">查看答案</button>
         </form>
       </li>
 
@@ -82,7 +87,11 @@
             <label nz-radio nzValue="T">正确</label>
             <label nz-radio nzValue="F">错误</label>
           </nz-radio-group>
-          <button nz-button (click)="submitJudge(stuJudge)" [disabled]="!stuJudge.answer || stuJudge.answer==''">提交回答</button>
+          <button nz-button *ngIf="!stuJudge.submitted"
+                  (click)="submitJudge(stuJudge)"
+                  [disabled]="!stuJudge.answer || stuJudge.answer==''">提交回答</button>
+          <button nz-button *ngIf="stuJudge.submitted" (click)="checkAnswer(stuJudge['assignmentLongId'], 3)">查看答案</button>
+
         </form>
 
         <!--分割线-->
