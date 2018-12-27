@@ -229,24 +229,22 @@ export class TCourseComponent implements OnInit {
     }
   }
 
-  deleteMindmap(mindmap: any) {
+  deleteMindmap() {
     const deleteModal = this.modalService.warning({
-      nzTitle     :  `确认删除思维导图${mindmap['name']}吗？`,
+      nzTitle     :  `确认删除思维导图${this.currentMindmap['name']}吗？`,
       nzContent   : '<b style="color: red;">删除后将无法恢复</b>',
       nzOkText    : '是',
       nzOkType    : 'primary',
-      nzOnOk      : () => this.mindmapService.deleteMindmap(mindmap['id']).subscribe(
+      nzOnOk      : () => this.mindmapService.deleteMindmap(this.currentMindmap['id']).subscribe(
         r => {
           deleteModal.destroy();
           this.mindmapService.getMindmapList(this.course_id).subscribe(list => {
 
             this.mindmapList = Array.from(list);
-            if (this.currentMindmap.id === mindmap['id']) {
-              if (this.mindmapList.length > 0) {
-                this.currentMindmap = this.mindmapList[0];
-              } else {
-                this.currentMindmap = null;
-              }
+            if (this.mindmapList.length > 0) {
+              this.currentMindmap = this.mindmapList[0];
+            } else {
+              this.currentMindmap = null;
             }
 
           });

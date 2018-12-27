@@ -9,7 +9,6 @@
           (colorPickerSelect)="change_font_color(font_color)">
         <span title>
           改变字体颜色
-          <!--<input [(colorPicker)]="color" value="改变字体颜色"/>-->
         </span>
       </li>
       <li nz-submenu  [(colorPicker)]="node_color"
@@ -41,7 +40,9 @@
 
   <button nz-button (click)="remove()" [disabled]="selected_node_id === '' || accuracyMode">删除节点</button>
 
-  <button nz-button style="float: right" (click)="save()" [disabled]="!isChanged || accuracyMode">保存</button>
+  <button nz-button style="float: right; margin-right: 10px;" (click)="save()" [disabled]="!isChanged || accuracyMode">保存</button>
+
+  <button nz-button style="float: right;" (click)="save()" [disabled]="!isChanged || accuracyMode">保存</button>
 
 </div>
 
